@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Тестовый скрипт",
+    "description": "Скрипт для проверки работы нашего менеджера.",
+    "filename": "test_script.lua",
+    "url": "https://raw.githubusercontent.com/ТВОЙ_НИК/ТВОЙ_РЕПОЗИТОРИЙ/main/test_script.lua"
+  }
+]
