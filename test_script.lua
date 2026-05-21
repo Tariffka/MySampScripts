@@ -1,10 +1,12 @@
 script_name("Test Script")
+script_author("Tariffka")
 
 function main()
-    if not isSampLoaded() or not isSampfuncsLoaded() then return end
-    while not isSampAvailable() do wait(100) end
-
-    sampAddChatMessage("[Test] Тестовый скрипт успешно скачан и запущен!", 0x00FF00)
-
-    wait(-1)
+    -- Просто сразу выводим сообщение, так как игра уже запущена
+    sampAddChatMessage("[Test] Этот скрипт был успешно запущен лаунчером на лету!", 0x33AAFF)
+    
+    -- Бесконечный цикл, чтобы скрипт не закрывался сразу после вывода сообщения
+    while true do
+        wait(0)
+    end
 end
