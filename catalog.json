@@ -1,32 +1,67 @@
 [
   {
-    "name": "Тестовый скрипт",
-    "description": "Скрипт для проверки работы менеджера.",
-    "filename": "test_script.lua",
-    "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/test_script.lua"
-  },
-  {
-    "name": "Тестовый 2",
-    "description": "Проверка номер 2 (в кодировке Windows-1251).",
-    "filename": "test two.lua",
-    "url": "https://github.com/Tariffka/MySampScripts3/raw/refs/heads/main/test_two.lua"
-  },
-  {
-    "name": "Оплата налогов фам кв",
-    "description": "Может в ручную, полуручная, автоматически оплачивать налоги на симейную квартиру.",
+    "name": "Famhouse",
+    "description": "Оплата налогов фам кв.",
     "filename": "FamHouse.lua",
     "url": "https://github.com/Tariffka/MySampScripts3/raw/refs/heads/main/famhouse.lua"
+    "command": "/fhmode"
   },
   {
-    "name": "Тест драйв",
-    "description": "Спомощю данно скрипта можно тестить машины до их выхода.",
+    "name": "TestDrive",
+    "description": "тестить машины до их выхода.",
     "filename": "TestDrive_v5.23_by_chapo.lua",
     "url": "https://github.com/Tariffka/MySampScripts3/raw/refs/heads/main/TestDrive_v5.23_by_chapo.lua"
+    "command": "/testdrive"
   },
   {
-    "name": "Кастомные название домов при спавне",
-    "description": "быстро узнавать где какой дом находится.",
+    "name": "CustomNameSpawn",
+    "description": "Описание домов при выборе спавна.",
     "filename": "CustomNameSpawn1.1.lua",
     "url": "https://github.com/Tariffka/MySampScripts3/raw/refs/heads/main/CustomNameSpawn1.1.lua"
+    "command": ""
+  },
+  {
+    "name": "InventoryAddon",
+    "description": "Скрипт позволяет изменять размер предметов в инвентаре и количество колонок.",
+    "filename": "InventoryAddon.lua",
+    "url": "https://github.com/Tariffka/MySampScripts3/raw/refs/heads/main/InventoryAddon.lua"
+    "command": ""
+  },
+  {
+    "name": "ModloaderSettings",
+    "description": "Скрипт добавляет в новое меню паузы настройки модов.",
+    "filename": "ModloaderSettings.lua",
+    "url": "https://github.com/Tariffka/MySampScripts3/raw/refs/heads/main/ModloaderSettings.lua"
+    "command": "В настройках игры"
+  },
+  {
+    "name": "dialogColor",
+    "description": "Изменяет цвет диалогов",
+    "filename": "dialogColor.lua",
+    "url": "https://github.com/Tariffka/MySampScripts3/raw/refs/heads/main/dialogColor.lua"
+    "command": "Нету"
+  },
+  {
+    "name": "Стрельба",
+    "description": "+c на клавишу ALT",
+    "filename": "test2.lua",
+    "url": "https://github.com/Tariffka/MySampScripts3/raw/refs/heads/main/test2.lua"
+    "command": "/testing"
+  },
+  {
+    "name": "Offline Uninvite",
+    "description": "Авто увольнение людей",
+    "filename": "Offline Uninvite.lua",
+    "url": "https://github.com/Tariffka/MySampScripts3/raw/refs/heads/main/Offline%20Uninvite.lua"
+    "command": "/fcleaner"
+  },
+  {
+    "name": "CEFStatsWindow",
+    "description": "Новая красивая статистика в /stats",
+    "filename": "CEFStatsWindow.lua",
+    "url": "https://github.com/Tariffka/MySampScripts3/raw/refs/heads/main/CEFStatsWindow.lua"
+    "command": "/stats либо F3"
   }
 ]
+  
+
