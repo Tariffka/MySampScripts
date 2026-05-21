@@ -4,13 +4,11 @@
     "description": "Скрипт для проверки работы менеджера.",
     "filename": "test_script.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/test_script.lua"
-  }
-]
-[
+  },
   {
-    "name": "Тестовый",
-    "description": "Проверка номер 2.",
+    "name": "Тестовый 2",
+    "description": "Проверка номер 2 (в кодировке Windows-1251).",
     "filename": "test two.lua",
-    "url": "https://github.com/Tariffka/MySampScripts3/raw/refs/heads/main/test%20two.lua"
+    "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/test%20two.lua"
   }
 ]
