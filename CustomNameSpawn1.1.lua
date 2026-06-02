@@ -53,12 +53,13 @@ function main()
     sampRegisterChatCommand('addcs', function (arg)
         local idhouse, cname = arg:match('(%d+) (.+)')
 
-        if not idhouse and idhouse == '' then
+        if not idhouse or idhouse == '' then
+            sampAddChatMessage(tag..' Âïèøè /addcs [ID äîìà] [Íàçâàíèå]', -1)
             return
         end
 
         if not cname or cname == '' then
-            sampAddChatMessage(tag..' Âïèøè íîðìàëüíî âòîðîé àðãóìåíò!', -1)
+            sampAddChatMessage(tag..' Âïèøè /addcs [ID äîìà] [Íàçâàíèå]', -1)
             return
         end
 
@@ -144,56 +145,43 @@ function main()
     end
 end
 
-function ev.onShowDialog(id, style, title, b1, b2, text)
-    if id == 25526 then
+function ev.onShowDialog(id, style, tit, b1, b2, text)
+    if tit:match('{BFBBBA}Âûáîð ìåñòà ñïàâíà') then
         local modifiedText = {}
 
         for n in text:gmatch('[^\r\n]+') do
-
             local idpunkta, namepunkt, idhouse = n:match('%{ae433d%}%[(%d+)%] %{ffffff%}(.+) ¹(%d+)')
 
-            local nameHouse = ''
-
             if idpunkta and namepunkt == 'Äîì' and idhouse then
-                --sampAddChatMessage(idpunkta..' '..namepunkt..' '..idhouse, -1)
+                local nameHouse = ''
 
+                -- Ïîèñê êàñòîìíîãî íàçâàíèÿ
                 for i, hc in ipairs(settings.customName) do
                     local idhome, nameHome = table.unpack(hc)
-
-
                     if idhome == idhouse then
                         nameHouse = nameHome
-                        --sampAddChatMessage(string.format('Äîì ¹%s íàõîäèòñÿ â: %s', idhome, nameHome), -1)
                         break
                     end
                 end
 
-                if nameHouse == '' then
-                    -- Ôîðìèðóåì íîâóþ ñòðîêó ÒÎËÜÊÎ äëÿ ôîðìàòà ñ "Äîì"
-                    local newLine = string.format(
-                    ('{ae433d}[%d] {ffffff}%s ¹%d %s'),
-                        idpunkta,
-                        namepunkt,
-                        idhouse,
-                        nameHouse)
-                    table.insert(modifiedText, newLine)
-                elseif nameHouse ~= '' then
+                if nameHouse ~= '' then
                     nameHouse = '{db9239}({a8e63e}'..nameHouse..'{db9239})'
-                    -- Ôîðìèðóåì íîâóþ ñòðîêó ÒÎËÜÊÎ äëÿ ôîðìàòà ñ "Äîì"
-                    local newLine = string.format(
-                    ('{ae433d}[%d] {ffffff}%s ¹%d %s'),
-                        idpunkta,
-                        namepunkt,
-                        idhouse,
-                        nameHouse)
-                    table.insert(modifiedText, newLine)
                 end
+
+                local newLine = string.format(
+                    '{ae433d}[%d] {ffffff}%s ¹%d %s',
+                    idpunkta,
+            namepunkt,
+            idhouse,
+            nameHouse
+        )
+        table.insert(modifiedText, newLine)
             else
                 table.insert(modifiedText, n)
             end
         end
 
-        local resultText = table.concat(modifiedText, "\n")
-        return {id, style, title, b1, b2, resultText}
+        local resultText = table.concat(modifiedText, '\n')
+        return {id, style, tit, b1, b2, resultText}
     end
 end
