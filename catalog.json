@@ -35,13 +35,6 @@
     "command": "В настройках игры"
   },
   {
-    "name": "dialogColor",
-    "description": "Изменяет цвет диалогов",
-    "filename": "dialogColor.lua",
-    "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/dialogColor.lua",
-    "command": "Нету"
-  },
-  {
     "name": "Offline Uninvite",
     "description": "Авто увольнение людей",
     "filename": "Offline Uninvite.lua",
