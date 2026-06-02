@@ -47,5 +47,19 @@
     "filename": "CEFStatsWindow.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/CEFStatsWindow.lua",
     "command": "/stats либо F3"
+  },
+  {
+    "name": "Инфо о ливе",
+    "description": "При выходе показывает место и причину",
+    "filename": "quit_notify.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/quit_notify.lua",
+    "command": "нету"
+  },
+  {
+    "name": "Inventory history",
+    "description": "Делает странички в инвентаре",
+    "filename": "InventoryPages.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/InventoryPages.lua",
+    "command": "нету"
   }
 ]
