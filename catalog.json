@@ -42,13 +42,6 @@
     "command": "Нету"
   },
   {
-    "name": "Стрельба",
-    "description": "+c на клавишу ALT",
-    "filename": "test2.lua",
-    "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/test2.lua",
-    "command": "/testing"
-  },
-  {
     "name": "Offline Uninvite",
     "description": "Авто увольнение людей",
     "filename": "Offline Uninvite.lua",
