@@ -1,63 +1,63 @@
 [
   {
-    "name": "Famhouse",
-    "description": "Оплата налогов фам кв.",
-    "filename": "FamHouse.lua",
-    "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/famhouse.lua",
+    "name": "[TJ]Taxes V2",
+    "description": "Оплата фам кв и дома/биз в 1 скрипте.",
+    "filename": "Taxes_V2.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/Taxes_v2.lua",
     "command": "/fhmode"
   },
   {
-    "name": "TestDrive",
+    "name": "[TJ]TestDrive",
     "description": "тестить машины до их выхода.",
     "filename": "TestDrive_v5.23_by_chapo.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/TestDrive_v5.23_by_chapo.lua",
     "command": "/testdrive"
   },
   {
-    "name": "CustomNameSpawn",
+    "name": "[TJ]CustomNameSpawn",
     "description": "Описание домов при выборе спавна.",
     "filename": "CustomNameSpawn1.2.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/CustomNameSpawn%201.2.lua",
     "command": "/addcs [id дома] [Кастом название]"
   },
   {
-    "name": "InventoryAddon",
+    "name": "[TJ]InventoryAddon",
     "description": "Скрипт позволяет изменять размер предметов в инвентаре и количество колонок.",
     "filename": "InventoryAddon.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/InventoryAddon.lua",
     "command": ""
   },
   {
-    "name": "ModloaderSettings",
-    "description": "Скрипт добавляет в новое меню паузы настройки модов.",
+    "name": "[TJ]ModloaderSettings",
+    "description": "Скрипт добавляет в новое меню паузы настройки модов (заменки).",
     "filename": "ModloaderSettings.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/ModloaderSettings.lua",
     "command": "В настройках игры"
   },
   {
-    "name": "Offline Uninvite",
-    "description": "Авто увольнение людей",
+    "name": "[TJ]Offline Uninvite",
+    "description": "Автоматически увольняет людей (всех подряд)",
     "filename": "Offline Uninvite.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/Offline%20Uninvite.lua",
     "command": "/fcleaner"
   },
   {
-    "name": "CEFStatsWindow",
+    "name": "[TJ]CEFStatsWindow",
     "description": "Новая красивая статистика в /stats",
     "filename": "CEFStatsWindow.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/CEFStatsWindow.lua",
     "command": "/stats либо F3"
   },
   {
-    "name": "Инфо о ливе",
-    "description": "При выходе показывает место и причину",
+    "name": "[TJ]qUIT Info",
+    "description": "При выходе игрока показывает место и причину",
     "filename": "quit_notify.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/quit_notify.lua",
     "command": "нету"
   },
   {
-    "name": "Inventory history",
-    "description": "Делает странички в инвентаре",
+    "name": "[TJ]Inventory history",
+    "description": "Делает страницы в инвентаре",
     "filename": "InventoryPages.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/InventoryPages.lua",
     "command": "нету"
