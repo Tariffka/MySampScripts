@@ -18,7 +18,7 @@
     "description": "Описание домов при выборе спавна.",
     "filename": "CustomNameSpawn1.1.2ua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/CustomNameSpawn%201.2.lua",
-    "command": ""
+    "command": "/addcs [id дома] [Кастом название]"
   },
   {
     "name": "InventoryAddon",
