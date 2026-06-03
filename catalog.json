@@ -16,7 +16,7 @@
   {
     "name": "CustomNameSpawn",
     "description": "Описание домов при выборе спавна.",
-    "filename": "CustomNameSpawn1.1.2ua",
+    "filename": "CustomNameSpawn1.2.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/CustomNameSpawn%201.2.lua",
     "command": "/addcs [id дома] [Кастом название]"
   },
