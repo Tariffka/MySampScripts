@@ -5,6 +5,7 @@
     "filename": "[TJ] Manager.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20Manager.lua",
     "command": "/tjm"
+    "version": "1.1"
   },
   {
     "name": "[TJ] Taxes V2",
@@ -12,6 +13,7 @@
     "filename": "[TJ] Taxes_V2.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20Taxes_V2.lua",
     "command": "/fhmode"
+    "version": "2.1"
   },
   {
     "name": "TestDrive",
@@ -19,6 +21,7 @@
     "filename": "TestDrive_v5.23_by_chapo.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/TestDrive_v5.23_by_chapo.lua",
     "command": "/testdrive"
+    "version": "1.0"
   },
   {
     "name": "CustomNameSpawn",
@@ -26,6 +29,7 @@
     "filename": "CustomNameSpawn 1.2.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/CustomNameSpawn%201.2.lua",
     "command": "/addcs [id дома] [Кастом название]"
+    "version": "1.0"
   },
   {
     "name": "ModloaderSettings",
@@ -33,6 +37,7 @@
     "filename": "ModloaderSettings.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/ModloaderSettings.lua",
     "command": "В настройках игры"
+    "version": "1.0"
   },
   {
     "name": "[TJ] Offline Uninvite",
@@ -40,6 +45,7 @@
     "filename": "Offline Uninvite.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/Offline%20Uninvite.lua",
     "command": "/fcleaner"
+    "version": "1.0"
   },
   {
     "name": "CEFStatsWindow",
@@ -47,6 +53,7 @@
     "filename": "CEFStatsWindow.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/CEFStatsWindow.lua",
     "command": "/stats либо F3"
+    "version": "1.0"
   },
   {
     "name": "quit info",
@@ -54,6 +61,7 @@
     "filename": "quit_notify.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/quit_notify.lua",
     "command": "нету"
+    "version": "1.0"
   },
   {
     "name": "Inventory history",
@@ -61,6 +69,7 @@
     "filename": "InventoryPages.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/InventoryPages.lua",
     "command": "нету"
+    "version": "1.0"
   },
   {
     "name": "[TJ] Рыбий Глаз",
@@ -68,6 +77,7 @@
     "filename": "[TJ] rib_Glaz.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20rib_Glaz.lua",
     "command": "glaz - Включить/Выключить \n/fov [10 - 150] - Изменение поля зрения"
+    "version": "1.0"
   },
   {
     "name": "[TJ] trmap",
@@ -75,5 +85,6 @@
     "filename": "[TJ] trmap.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20trmap.lua",
     "command": "Команду показывает при скачивании"
+    "version": "1.0"
   }
 ]
