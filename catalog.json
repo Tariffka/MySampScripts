@@ -40,14 +40,6 @@
     "version": "1.0"
   },
   {
-    "name": "[TJ] Offline Uninvite",
-    "description": "Автоматически увольняет людей (всех подряд)",
-    "filename": "Offline Uninvite.lua",
-    "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/Offline%20Uninvite.lua",
-    "command": "/fcleaner",
-    "version": "1.0"
-  },
-  {
     "name": "CEFStatsWindow",
     "description": "Новая красивая статистика в /stats",
     "filename": "CEFStatsWindow.lua",
