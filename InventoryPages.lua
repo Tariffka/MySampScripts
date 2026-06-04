@@ -1,4 +1,5 @@
 script_author("Willy4ka")
+script_version("1.0")
 
 local code = [[
 const slots = {
@@ -68,7 +69,7 @@ const CreatePagesWrapper = (pages, id) => {
 	return MainWrapper;
 };
 
-// ðàáîòàé ìîé ðîäíåíüêèé äèïñèê
+// Ã°Ã Ã¡Ã®Ã²Ã Ã© Ã¬Ã®Ã© Ã°Ã®Ã¤Ã­Ã¥Ã­Ã¼ÃªÃ¨Ã© Ã¤Ã¨Ã¯Ã±Ã¨Ãª
 function waitForElement(selector, callback, timeout = 10000) {
 	const promise = new Promise((resolve, reject) => {
 		const startTime = Date.now();
