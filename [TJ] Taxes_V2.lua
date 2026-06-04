@@ -1,6 +1,6 @@
 script_author('tarif_jan')
 script_name('Taxes')
-script_version('2.0')
+script_version('2.1')
 
 require("moonloader")
 local sampev = require("samp.events")
@@ -31,7 +31,6 @@ function main()
     
     -- Ручные оплаты
     sampRegisterChatCommand('tx', function()
-        chat("Запуск ручной оплаты налогов (телефон)...")
         toggleTaxesPay()
     end)
 
@@ -70,6 +69,7 @@ end
 -- ================= ЛОГИКА ЗАПУСКА ОПЛАТЫ ================= --
 
 function toggleTaxesPay()
+    if isPayingTaxes then return end
     isPayingTaxes = true
     lua_thread.create(function()
         sampSendChat('/phone')
@@ -85,14 +85,17 @@ end
 function toggleFamHousePay()
     if not isPayingFamHouse then
         isPayingFamHouse = true
-        sampSendChat('/fammenu')
-        chat('Оплачиваем семейную квартиру...')
-        sendCef('familyMenu.changePage|5')
-        sendCef('familyMenu.apart.payTax')
-        sendCef('familyMenu.exit')
+        lua_thread.create(function()
+            sampSendChat('/fammenu')
+            wait(1200) -- Даем серверу время открыть меню перед отправкой CEF пакетов
+            sendCef('familyMenu.changePage|5')
+            wait(300)
+            sendCef('familyMenu.apart.payTax')
+            wait(300)
+            sendCef('familyMenu.exit')
+        end)
     else
         isPayingFamHouse = false
-        chat('Оплата семейной квартиры отменена (ручное прерывание).')
     end
 end
 
@@ -153,10 +156,14 @@ function sampev.onShowDialog(id, style, title, button1, button2, text)
 
     -- 2. Логика диалогов для Семейной Квартиры
     if isPayingFamHouse then
-        if title:find('Оплата налога на семейную квартиру') then
+        local lowerTitle = title:lower()
+        local lowerText = text:lower()
+
+        -- Максимально гибкая проверка заголовка и текста на ключевые слова
+        if lowerTitle:find('семейн') or lowerTitle:find('квартир') or lowerTitle:find('налог') or lowerText:find('семейную квартиру') then
             local cleanText = text:gsub('{.-}', '')
             
-            local taxRaw = cleanText:match('составляет%s*.-(%d[%d%s%.,]*)')
+            local taxRaw = cleanText:match('составляет%s*.-(%d[%d%s%.,]*)') or cleanText:match('налог%s*.-(%d[%d%s%.,]*)')
             local tax = nil
 
             if taxRaw then
@@ -180,7 +187,7 @@ function sampev.onShowDialog(id, style, title, button1, button2, text)
             sampSendDialogResponse(id, 0)
             return false
 
-        elseif title:find('Информация') and (text:find('Теперь налог') or text:find('Вы оплатили')) then
+        elseif lowerTitle:find('информац') and (lowerText:find('теперь налог') or lowerText:find('вы оплатили')) then
             isPayingFamHouse = false
             local cleanInfo = text:gsub('{.-}', '')
             
@@ -202,22 +209,24 @@ end
 function sampev.onServerMessage(color, text)
     -- Проверка на PayDay
     if text:find("==========================================================================") then
-        
-        if iniData.main.autoTaxes then
-            chat("PayDay! Оплата обычных налогов начнется через 5 секунд...")
-            lua_thread.create(function()
-                wait(5000)
+        lua_thread.create(function()
+            -- 1. Сначала запускаем оплату через телефон (если включена)
+            if iniData.main.autoTaxes then
+                wait(2000) -- Пауза после строки PayDay для стабильности
                 toggleTaxesPay()
-            end)
-        end
+                
+                -- Ждем в цикле, пока флаг телефонной оплаты не перейдет в false
+                while isPayingTaxes do
+                    wait(100)
+                end
+                wait(2000) -- Пауза между оплатами, чтобы CEF-окна не накладывались
+            end
 
-        if iniData.main.autoFamHouse then
-            chat("PayDay! Оплата семейной квартиры начнется через 10 секунд...")
-            lua_thread.create(function()
-                wait(10000) -- Ждем дольше, чтобы не сбить CEF меню телефона обычными диалогами!
+            -- 2. Затем запускаем оплату семейной квартиры (если включена)
+            if iniData.main.autoFamHouse then
                 toggleFamHousePay()
-            end)
-        end
+            end
+        end)
     end
 
     -- Уведомление об успешной оплате обычных налогов
