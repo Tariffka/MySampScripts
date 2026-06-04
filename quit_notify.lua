@@ -1,4 +1,5 @@
-script_version("1.0")
+-- by Cosmo with <3
+script_version('1.0')
 
 local se = require("samp.events")
 local Vector3D = require("vector3d")
@@ -7,9 +8,9 @@ local pool_3DTexts = {}
 local pool_notifies = {}
 local duration = 15
 local quit_reasons = {
-    [0] = "Êðàø / Òàéì-àóò",
-    [1] = "Âûøåë c ñåðâåðà",
-    [2] = "Êèêíóò ñåðâåðîì"
+    [0] = "Краш / Тайм-аут",
+    [1] = "Вышел c сервера",
+    [2] = "Кикнут сервером"
 }
 
 function se.onPlayerQuit(player_id, reason)
@@ -24,10 +25,10 @@ function se.onPlayerQuit(player_id, reason)
     if getDistanceBetweenCoords3d(px, py, pz, mx, my, mz) <= 50 then
         local nickname = sampGetPlayerNickname(player_id)
         local message = table.concat({
-            ("Èãðîê %s(%d) ïîêèíóë èãðó"):format(nickname, player_id),
+            ("Игрок %s(%d) покинул игру"):format(nickname, player_id),
             "",
-            quit_reasons[reason] or "Íåèçâåñòíàÿ ïðè÷èíà",
-            ("Âðåìÿ: %s"):format(os.date("%H:%M:%S"))
+            quit_reasons[reason] or "Неизвестная причина",
+            ("Время: %s"):format(os.date("%H:%M:%S"))
         }, "\n")
 
         createQuitNotify(px, py, pz, message)
