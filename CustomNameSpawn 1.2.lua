@@ -1,6 +1,6 @@
 script_name('{87c445}Custom Spawn')
+script_version('1.2')
 script_author('by yargoff')
-script_version("1.0")
 
 local ev = require('lib.samp.events')
 
@@ -49,18 +49,18 @@ local tag = '{87c445}[Custom Spawn]{ffffff}'
 function main()
     while not isSampAvailable() do wait(0) end
 
-    sampAddChatMessage(tag.. ' Ñêðèïò çàãðóæåí!', -1)
+    sampAddChatMessage(tag.. ' Скрипт загружен!', -1)
 
     sampRegisterChatCommand('addcs', function (arg)
         local idhouse, cname = arg:match('(%d+) (.+)')
 
         if not idhouse or idhouse == '' then
-            sampAddChatMessage(tag..' Âïèøè /addcs [ID äîìà] [Íàçâàíèå]', -1)
+            sampAddChatMessage(tag..' Впиши /addcs [ID дома] [Название]', -1)
             return
         end
 
         if not cname or cname == '' then
-            sampAddChatMessage(tag..' Âïèøè /addcs [ID äîìà] [Íàçâàíèå]', -1)
+            sampAddChatMessage(tag..' Впиши /addcs [ID дома] [Название]', -1)
             return
         end
 
@@ -80,7 +80,7 @@ function main()
                         else
                             settings.customName[index] = {idhouse, cname}
                             local status, code = json('CustomHouseName.json'):Save(settings)
-                            sampAddChatMessage(tag .. (status and ' Îáíîâèë êàñòîì íàçâàíèå äëÿ äîìèêà - ' .. idhouse or 'Íå ñìîã âíåñòè êàñòîì íàçâàíèå äîìèêó: '..code), -1)
+                            sampAddChatMessage(tag .. (status and ' Обновил кастом название для домика - ' .. idhouse or 'Не смог внести кастом название домику: '..code), -1)
                         end
                         break
 
@@ -89,33 +89,33 @@ function main()
 
                 if existingIndex then
                     if checkOneName then
-                        sampAddChatMessage(tag.. ' Êàñòîì íåéì óæå ñîäåðæèòñÿ íà ýòîì äîìèêå!', -1)
+                        sampAddChatMessage(tag.. ' Кастом нейм уже содержится на этом домике!', -1)
                     end
                     return true
                 else
                     table.insert(settings.customName, {idhouse, cname})
                     local status, code = json('CustomHouseName.json'):Save(settings)
-                    sampAddChatMessage(status and tag .. ' Ââ¸ë êàñòîì íàçâàíèå äëÿ íîâîãî äîìèêà: "'..idhouse..'"' or tag .. ' Íå ñìîã äîáàâèòü êàñòîì íàçâàíèå: '..code, -1)
-                    return false -- íîâûé áèçíåñ
+                    sampAddChatMessage(status and tag .. ' Ввёл кастом название для нового домика: "'..idhouse..'"' or tag .. ' Не смог добавить кастом название: '..code, -1)
+                    return false -- новый бизнес
                 end
             end
         end
     end)
 
     sampRegisterChatCommand('clearcs', function (args)
-        -- Åñëè àðãóìåíòîâ íåò — î÷èùàåì âåñü ñïèñîê
+        -- Если аргументов нет — очищаем весь список
         if not args or args == '' then
             settings.customName = {}
             local status, code = json('CustomHouseName.json'):Save(settings)
-            sampAddChatMessage(tag..' Âåñü ñïèñîê î÷èùåí', -1)
+            sampAddChatMessage(tag..' Весь список очищен', -1)
             return
         end
 
         local targetId = args
 
-        -- Ïðîâåðêà: êîððåêòåí ëè ID (÷èñëî)
+        -- Проверка: корректен ли ID (число)
         if not targetId then
-            sampAddChatMessage(tag..' Îøèáêà: óêàæèòå êîððåêòíûé ID äîìà', -1)
+            sampAddChatMessage(tag..' Ошибка: укажите корректный ID дома', -1)
             return
         end
 
@@ -128,16 +128,16 @@ function main()
             end
         end
 
-        -- Åñëè ID íå íàéäåí
+        -- Если ID не найден
         if not foundIndex then
-            sampAddChatMessage(tag..' '..string.format('Äîì ñ ID %d íå íàéäåí â ñïèñêå', targetId), -1)
+            sampAddChatMessage(tag..' '..string.format('Дом с ID %d не найден в списке', targetId), -1)
             return
         end
 
-        -- Óäàëåíèå íàéäåííîãî ID èç ñïèñêà
+        -- Удаление найденного ID из списка
         table.remove(settings.customName, foundIndex)
         local status, code = json('CustomHouseName.json'):Save(settings)
-        sampAddChatMessage(tag..' '..string.format('Íåéì äîìà ñ ID %d óñïåøíî óäàëåí èç ñïèñêà', targetId), -1)
+        sampAddChatMessage(tag..' '..string.format('Нейм дома с ID %d успешно удален из списка', targetId), -1)
 
     end)
 
@@ -147,16 +147,16 @@ function main()
 end
 
 function ev.onShowDialog(id, style, tit, b1, b2, text)
-    if tit:match('{BFBBBA}Âûáîð ìåñòà ñïàâíà') then
+    if tit:match('{BFBBBA}Выбор места спавна') then
         local modifiedText = {}
 
         for n in text:gmatch('[^\r\n]+') do
-            local idpunkta, namepunkt, idhouse = n:match('%{ae433d%}%[(%d+)%] %{ffffff%}(.+) ¹(%d+)')
+            local idpunkta, namepunkt, idhouse = n:match('%{ae433d%}%[(%d+)%] %{ffffff%}(.+) №(%d+)')
 
-            if idpunkta and namepunkt == 'Äîì' and idhouse then
+            if idpunkta and namepunkt == 'Дом' and idhouse then
                 local nameHouse = ''
 
-                -- Ïîèñê êàñòîìíîãî íàçâàíèÿ
+                -- Поиск кастомного названия
                 for i, hc in ipairs(settings.customName) do
                     local idhome, nameHome = table.unpack(hc)
                     if idhome == idhouse then
@@ -170,7 +170,7 @@ function ev.onShowDialog(id, style, tit, b1, b2, text)
                 end
 
                 local newLine = string.format(
-                    '{ae433d}[%d] {ffffff}%s ¹%d %s',
+                    '{ae433d}[%d] {ffffff}%s №%d %s',
                     idpunkta,
             namepunkt,
             idhouse,
