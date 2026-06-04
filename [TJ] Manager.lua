@@ -1,5 +1,6 @@
 script_name("Script Manager")
 script_author("tarif_jan")
+script_version("1.1")
 
 local imgui = require 'mimgui'
 local encoding = require 'encoding'
