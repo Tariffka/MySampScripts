@@ -1,10 +1,10 @@
-script_name('Ðûáèé ãëàç')
-script_version("1.0")
+script_name('Рыбий глаз')
+script_version_number(001)
 script_author('tarif_jan')
 
 local enabled = true
 local locked = false
-local currentFov = 101.0 -- Áàçîâîå çíà÷åíèå FOV ïðè çàïóñêå
+local currentFov = 101.0 -- Базовое значение FOV при запуске
 
 function main()
 	repeat wait(0) until isSampAvailable()
@@ -13,33 +13,33 @@ function main()
 	sampRegisterChatCommand('glaz', function()
 		enabled = not enabled
 		if enabled then
-			msg('Ýôôåêò {00FF00}âêëþ÷åí')
+			msg('Эффект {00FF00}включен')
 		else
-			msg('Ýôôåêò {FF0000}âûêëþ÷åí')
-			-- Âîçâðàùàåì ñòàíäàðòíûé FOV ïðè âûêëþ÷åíèè, ÷òîáû êàìåðà íå çàñòðåâàëà
+			msg('Эффект {FF0000}выключен')
+			-- Возвращаем стандартный FOV при выключении, чтобы камера не застревала
 			cameraSetLerpFov(70.0, 70.0, 1000, 1) 
 		end
 	end)
 
 	sampRegisterChatCommand('fov', function(arg)
 		local fovValue = tonumber(arg)
-		-- Ïðîâåðÿåì, ÷òî ââåëè ÷èñëî è îíî â àäåêâàòíûõ ïðåäåëàõ (îò 10 äî 150)
+		-- Проверяем, что ввели число и оно в адекватных пределах (от 10 до 150)
 		if fovValue and fovValue >= 10 and fovValue <= 150 then
 			currentFov = fovValue
-			msg('Çíà÷åíèå FOV óñïåøíî èçìåíåíî íà: {CD5C5C}' .. currentFov)
+			msg('Значение FOV успешно изменено на: {CD5C5C}' .. currentFov)
 		else
-			msg('Îøèáêà! Èñïîëüçóéòå: {CD5C5C}/fov [10 - 150]')
+			msg('Ошибка! Используйте: {CD5C5C}/fov [10 - 150]')
 		end
 	end)
 	--[[_______________COMMANDS_______________]]--
 	
-	msg(string.format('Ñêðèïò ïîäãðóæåí. Âëàäåëåö: {CD5C5C}[%s]', thisScript().authors[1]))
-	msg('Êîìàíäû: {CD5C5C}/glaz {ffffff}— âêë/âûêë, {CD5C5C}/fov [10-150] {ffffff}— óãîë îáçîðà')
+	msg(string.format('Скрипт подгружен. Владелец: {CD5C5C}[%s]', thisScript().authors[1]))
+	msg('Команды: {CD5C5C}/glaz {ffffff}— вкл/выкл, {CD5C5C}/fov [10-150] {ffffff}— угол обзора')
 	
 	while true do
 		wait(0)
 		if enabled then
-			-- 34 id îðóæèÿ - ýòî ñíàéïåðñêàÿ âèíòîâêà. Âîçâðàùàåì ñòàíäàðòíûé FOV â ïðèöåëå.
+			-- 34 id оружия - это снайперская винтовка. Возвращаем стандартный FOV в прицеле.
 			if isCurrentCharWeapon(PLAYER_PED, 34) and isKeyDown(2) then
 				if not locked then 
 					cameraSetLerpFov(70.0, 70.0, 1000, 1)
