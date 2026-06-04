@@ -1,10 +1,10 @@
 [
-    {
+  {
     "name": "[TJ] Script Manager",
     "description": "Удобный менджер для скачивание скриптов.\nЗа основу взят скрипт от [JF] Script Manager New от JustFedot",
     "filename": "[TJ] Manager.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20Manager.lua",
-    "command": "/tjm"
+    "command": "/tjm",
     "version": "1.1"
   },
   {
@@ -12,7 +12,7 @@
     "description": "Оплата фам кв и дома/биз в 1 скрипте.",
     "filename": "[TJ] Taxes_V2.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20Taxes_V2.lua",
-    "command": "/fhmode"
+    "command": "/fhmode",
     "version": "2.1"
   },
   {
@@ -20,7 +20,7 @@
     "description": "тестить машины до их выхода.",
     "filename": "TestDrive_v5.23_by_chapo.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/TestDrive_v5.23_by_chapo.lua",
-    "command": "/testdrive"
+    "command": "/testdrive",
     "version": "1.0"
   },
   {
@@ -28,7 +28,7 @@
     "description": "Описание домов при выборе спавна.",
     "filename": "CustomNameSpawn 1.2.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/CustomNameSpawn%201.2.lua",
-    "command": "/addcs [id дома] [Кастом название]"
+    "command": "/addcs [id дома] [Кастом название]",
     "version": "1.0"
   },
   {
@@ -36,7 +36,7 @@
     "description": "Скрипт добавляет в новое меню паузы настройки модов (заменки).",
     "filename": "ModloaderSettings.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/ModloaderSettings.lua",
-    "command": "В настройках игры"
+    "command": "В настройках игры",
     "version": "1.0"
   },
   {
@@ -44,7 +44,7 @@
     "description": "Автоматически увольняет людей (всех подряд)",
     "filename": "Offline Uninvite.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/Offline%20Uninvite.lua",
-    "command": "/fcleaner"
+    "command": "/fcleaner",
     "version": "1.0"
   },
   {
@@ -52,7 +52,7 @@
     "description": "Новая красивая статистика в /stats",
     "filename": "CEFStatsWindow.lua",
     "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/CEFStatsWindow.lua",
-    "command": "/stats либо F3"
+    "command": "/stats либо F3",
     "version": "1.0"
   },
   {
@@ -60,7 +60,7 @@
     "description": "При выходе игрока показывает место и причину",
     "filename": "quit_notify.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/quit_notify.lua",
-    "command": "нету"
+    "command": "нету",
     "version": "1.0"
   },
   {
@@ -68,7 +68,7 @@
     "description": "Делает страницы в инвентаре",
     "filename": "InventoryPages.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/InventoryPages.lua",
-    "command": "нету"
+    "command": "нету",
     "version": "1.0"
   },
   {
@@ -76,7 +76,7 @@
     "description": "увеличивает поле зрения игрока",
     "filename": "[TJ] rib_Glaz.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20rib_Glaz.lua",
-    "command": "glaz - Включить/Выключить \n/fov [10 - 150] - Изменение поля зрения"
+    "command": "glaz - Включить/Выключить \n/fov [10 - 150] - Изменение поля зрения",
     "version": "1.0"
   },
   {
@@ -84,7 +84,7 @@
     "description": "Копирует зону клада",
     "filename": "[TJ] trmap.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20trmap.lua",
-    "command": "Команду показывает при скачивании"
+    "command": "Команду показывает при скачивании",
     "version": "1.0"
   }
 ]
