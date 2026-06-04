@@ -1,8 +1,7 @@
 [
     {
     "name": "[TJ] Script Manager",
-    "description": "Удобный менджер для скачивание скриптов",
-    "description": "За основу взят скрипт от [JF] Script Manager New от JustFedot",
+    "description": "Удобный менджер для скачивание скриптов.\nЗа основу взят скрипт от [JF] Script Manager New от JustFedot",
     "filename": "[TJ] Manager.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20Manager.lua",
     "command": "/tjm"
@@ -68,8 +67,7 @@
     "description": "увеличивает поле зрения игрока",
     "filename": "[TJ] rib_Glaz.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20rib_Glaz.lua",
-    "command": "glaz - Включить/Выключить"
-    "command": "/fov [10 - 150] - Изменение поля зрения"
+    "command": "glaz - Включить/Выключить \n/fov [10 - 150] - Изменение поля зрения"
   },
   {
     "name": "[TJ] trmap",
