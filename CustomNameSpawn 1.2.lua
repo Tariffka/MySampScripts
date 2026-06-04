@@ -1,5 +1,6 @@
-script_name('{87c445}Custom Spawn {ffffff}by yargoff')
+script_name('{87c445}Custom Spawn')
 script_author('by yargoff')
+script_version("1.0")
 
 local ev = require('lib.samp.events')
 
@@ -48,18 +49,18 @@ local tag = '{87c445}[Custom Spawn]{ffffff}'
 function main()
     while not isSampAvailable() do wait(0) end
 
-    sampAddChatMessage(tag.. ' Скрипт загружен!', -1)
+    sampAddChatMessage(tag.. ' Г‘ГЄГ°ГЁГЇГІ Г§Г ГЈГ°ГіГ¦ГҐГ­!', -1)
 
     sampRegisterChatCommand('addcs', function (arg)
         local idhouse, cname = arg:match('(%d+) (.+)')
 
         if not idhouse or idhouse == '' then
-            sampAddChatMessage(tag..' Впиши /addcs [ID дома] [Название]', -1)
+            sampAddChatMessage(tag..' Г‚ГЇГЁГёГЁ /addcs [ID Г¤Г®Г¬Г ] [ГЌГ Г§ГўГ Г­ГЁГҐ]', -1)
             return
         end
 
         if not cname or cname == '' then
-            sampAddChatMessage(tag..' Впиши /addcs [ID дома] [Название]', -1)
+            sampAddChatMessage(tag..' Г‚ГЇГЁГёГЁ /addcs [ID Г¤Г®Г¬Г ] [ГЌГ Г§ГўГ Г­ГЁГҐ]', -1)
             return
         end
 
@@ -79,7 +80,7 @@ function main()
                         else
                             settings.customName[index] = {idhouse, cname}
                             local status, code = json('CustomHouseName.json'):Save(settings)
-                            sampAddChatMessage(tag .. (status and ' Обновил кастом название для домика - ' .. idhouse or 'Не смог внести кастом название домику: '..code), -1)
+                            sampAddChatMessage(tag .. (status and ' ГЋГЎГ­Г®ГўГЁГ« ГЄГ Г±ГІГ®Г¬ Г­Г Г§ГўГ Г­ГЁГҐ Г¤Г«Гї Г¤Г®Г¬ГЁГЄГ  - ' .. idhouse or 'ГЌГҐ Г±Г¬Г®ГЈ ГўГ­ГҐГ±ГІГЁ ГЄГ Г±ГІГ®Г¬ Г­Г Г§ГўГ Г­ГЁГҐ Г¤Г®Г¬ГЁГЄГі: '..code), -1)
                         end
                         break
 
@@ -88,33 +89,33 @@ function main()
 
                 if existingIndex then
                     if checkOneName then
-                        sampAddChatMessage(tag.. ' Кастом нейм уже содержится на этом домике!', -1)
+                        sampAddChatMessage(tag.. ' ГЉГ Г±ГІГ®Г¬ Г­ГҐГ©Г¬ ГіГ¦ГҐ Г±Г®Г¤ГҐГ°Г¦ГЁГІГ±Гї Г­Г  ГЅГІГ®Г¬ Г¤Г®Г¬ГЁГЄГҐ!', -1)
                     end
                     return true
                 else
                     table.insert(settings.customName, {idhouse, cname})
                     local status, code = json('CustomHouseName.json'):Save(settings)
-                    sampAddChatMessage(status and tag .. ' Ввёл кастом название для нового домика: "'..idhouse..'"' or tag .. ' Не смог добавить кастом название: '..code, -1)
-                    return false -- новый бизнес
+                    sampAddChatMessage(status and tag .. ' Г‚ГўВёГ« ГЄГ Г±ГІГ®Г¬ Г­Г Г§ГўГ Г­ГЁГҐ Г¤Г«Гї Г­Г®ГўГ®ГЈГ® Г¤Г®Г¬ГЁГЄГ : "'..idhouse..'"' or tag .. ' ГЌГҐ Г±Г¬Г®ГЈ Г¤Г®ГЎГ ГўГЁГІГј ГЄГ Г±ГІГ®Г¬ Г­Г Г§ГўГ Г­ГЁГҐ: '..code, -1)
+                    return false -- Г­Г®ГўГ»Г© ГЎГЁГ§Г­ГҐГ±
                 end
             end
         end
     end)
 
     sampRegisterChatCommand('clearcs', function (args)
-        -- Если аргументов нет — очищаем весь список
+        -- Г…Г±Г«ГЁ Г Г°ГЈГіГ¬ГҐГ­ГІГ®Гў Г­ГҐГІ вЂ” Г®Г·ГЁГ№Г ГҐГ¬ ГўГҐГ±Гј Г±ГЇГЁГ±Г®ГЄ
         if not args or args == '' then
             settings.customName = {}
             local status, code = json('CustomHouseName.json'):Save(settings)
-            sampAddChatMessage(tag..' Весь список очищен', -1)
+            sampAddChatMessage(tag..' Г‚ГҐГ±Гј Г±ГЇГЁГ±Г®ГЄ Г®Г·ГЁГ№ГҐГ­', -1)
             return
         end
 
         local targetId = args
 
-        -- Проверка: корректен ли ID (число)
+        -- ГЏГ°Г®ГўГҐГ°ГЄГ : ГЄГ®Г°Г°ГҐГЄГІГҐГ­ Г«ГЁ ID (Г·ГЁГ±Г«Г®)
         if not targetId then
-            sampAddChatMessage(tag..' Ошибка: укажите корректный ID дома', -1)
+            sampAddChatMessage(tag..' ГЋГёГЁГЎГЄГ : ГіГЄГ Г¦ГЁГІГҐ ГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© ID Г¤Г®Г¬Г ', -1)
             return
         end
 
@@ -127,16 +128,16 @@ function main()
             end
         end
 
-        -- Если ID не найден
+        -- Г…Г±Г«ГЁ ID Г­ГҐ Г­Г Г©Г¤ГҐГ­
         if not foundIndex then
-            sampAddChatMessage(tag..' '..string.format('Дом с ID %d не найден в списке', targetId), -1)
+            sampAddChatMessage(tag..' '..string.format('Г„Г®Г¬ Г± ID %d Г­ГҐ Г­Г Г©Г¤ГҐГ­ Гў Г±ГЇГЁГ±ГЄГҐ', targetId), -1)
             return
         end
 
-        -- Удаление найденного ID из списка
+        -- Г“Г¤Г Г«ГҐГ­ГЁГҐ Г­Г Г©Г¤ГҐГ­Г­Г®ГЈГ® ID ГЁГ§ Г±ГЇГЁГ±ГЄГ 
         table.remove(settings.customName, foundIndex)
         local status, code = json('CustomHouseName.json'):Save(settings)
-        sampAddChatMessage(tag..' '..string.format('Нейм дома с ID %d успешно удален из списка', targetId), -1)
+        sampAddChatMessage(tag..' '..string.format('ГЌГҐГ©Г¬ Г¤Г®Г¬Г  Г± ID %d ГіГ±ГЇГҐГёГ­Г® ГіГ¤Г Г«ГҐГ­ ГЁГ§ Г±ГЇГЁГ±ГЄГ ', targetId), -1)
 
     end)
 
@@ -146,16 +147,16 @@ function main()
 end
 
 function ev.onShowDialog(id, style, tit, b1, b2, text)
-    if tit:match('{BFBBBA}Выбор места спавна') then
+    if tit:match('{BFBBBA}Г‚Г»ГЎГ®Г° Г¬ГҐГ±ГІГ  Г±ГЇГ ГўГ­Г ') then
         local modifiedText = {}
 
         for n in text:gmatch('[^\r\n]+') do
-            local idpunkta, namepunkt, idhouse = n:match('%{ae433d%}%[(%d+)%] %{ffffff%}(.+) №(%d+)')
+            local idpunkta, namepunkt, idhouse = n:match('%{ae433d%}%[(%d+)%] %{ffffff%}(.+) В№(%d+)')
 
-            if idpunkta and namepunkt == 'Дом' and idhouse then
+            if idpunkta and namepunkt == 'Г„Г®Г¬' and idhouse then
                 local nameHouse = ''
 
-                -- Поиск кастомного названия
+                -- ГЏГ®ГЁГ±ГЄ ГЄГ Г±ГІГ®Г¬Г­Г®ГЈГ® Г­Г Г§ГўГ Г­ГЁГї
                 for i, hc in ipairs(settings.customName) do
                     local idhome, nameHome = table.unpack(hc)
                     if idhome == idhouse then
@@ -169,7 +170,7 @@ function ev.onShowDialog(id, style, tit, b1, b2, text)
                 end
 
                 local newLine = string.format(
-                    '{ae433d}[%d] {ffffff}%s №%d %s',
+                    '{ae433d}[%d] {ffffff}%s В№%d %s',
                     idpunkta,
             namepunkt,
             idhouse,
