@@ -2,6 +2,9 @@ script_name('{87c445}Custom Spawn')
 script_version('1.2')
 script_author('by yargoff')
 
+local encoding = require 'encoding'
+encoding.default = 'CP1251'
+local u8 = encoding.UTF8
 local ev = require('lib.samp.events')
 
 function json(filePath)
