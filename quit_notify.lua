@@ -1,4 +1,5 @@
--- by Cosmo with <3
+script_version("1.0")
+
 local se = require("samp.events")
 local Vector3D = require("vector3d")
 
@@ -6,9 +7,9 @@ local pool_3DTexts = {}
 local pool_notifies = {}
 local duration = 15
 local quit_reasons = {
-    [0] = "Êðàø / Òàéì-àóò",
-    [1] = "Âûøåë c ñåðâåðà",
-    [2] = "Êèêíóò ñåðâåðîì"
+    [0] = "ÃŠÃ°Ã Ã¸ / Ã’Ã Ã©Ã¬-Ã Ã³Ã²",
+    [1] = "Ã‚Ã»Ã¸Ã¥Ã« c Ã±Ã¥Ã°Ã¢Ã¥Ã°Ã ",
+    [2] = "ÃŠÃ¨ÃªÃ­Ã³Ã² Ã±Ã¥Ã°Ã¢Ã¥Ã°Ã®Ã¬"
 }
 
 function se.onPlayerQuit(player_id, reason)
@@ -23,10 +24,10 @@ function se.onPlayerQuit(player_id, reason)
     if getDistanceBetweenCoords3d(px, py, pz, mx, my, mz) <= 50 then
         local nickname = sampGetPlayerNickname(player_id)
         local message = table.concat({
-            ("Èãðîê %s(%d) ïîêèíóë èãðó"):format(nickname, player_id),
+            ("ÃˆÃ£Ã°Ã®Ãª %s(%d) Ã¯Ã®ÃªÃ¨Ã­Ã³Ã« Ã¨Ã£Ã°Ã³"):format(nickname, player_id),
             "",
-            quit_reasons[reason] or "Íåèçâåñòíàÿ ïðè÷èíà",
-            ("Âðåìÿ: %s"):format(os.date("%H:%M:%S"))
+            quit_reasons[reason] or "ÃÃ¥Ã¨Ã§Ã¢Ã¥Ã±Ã²Ã­Ã Ã¿ Ã¯Ã°Ã¨Ã·Ã¨Ã­Ã ",
+            ("Ã‚Ã°Ã¥Ã¬Ã¿: %s"):format(os.date("%H:%M:%S"))
         }, "\n")
 
         createQuitNotify(px, py, pz, message)
