@@ -1,3 +1,5 @@
+script_version("1.0")
+
 local lfs = require('lfs')
 local imgui = require('mimgui')
 local base64 = require("base64")
@@ -90,7 +92,7 @@ local newFrame = imgui.OnFrame(
                 end
                 imgui.SameLine()
                 imgui.PushItemWidth(120)
-                if imgui.InputInt(u8("Ïğèîğèòåò"), v.priority, 1, 10) then
+                if imgui.InputInt(u8("ÃÃ°Ã¨Ã®Ã°Ã¨Ã²Ã¥Ã²"), v.priority, 1, 10) then
                     saveCurrentConfig()
                 end
                 imgui.EndChild()
@@ -460,7 +462,7 @@ const showModInfo = (parent, data) => {
 
 	const caption = document.createElement("div");
 	caption.className = "main-menu-settings__info-caption";
-	caption.textContent = "èíôîğìàöèÿ";
+	caption.textContent = "Ã¨Ã­Ã´Ã®Ã°Ã¬Ã Ã¶Ã¨Ã¿";
     caption.id = "modinfo";
     parent.appendChild(caption);
 
@@ -755,13 +757,13 @@ function createSwitchControl({ value = false, onChange = null, mod } = {}) {
 
 	const textOff = document.createElement("div");
 	textOff.className = "main-menu-switch__state-text";
-	textOff.textContent = "ÂÛÊË";
+	textOff.textContent = "Ã‚Ã›ÃŠÃ‹";
 	textOff.style.position = "relative";
 	textOff.style.zIndex = "2";
 
 	const textOn = document.createElement("div");
 	textOn.className = "main-menu-switch__state-text";
-	textOn.textContent = "ÂÊË";
+	textOn.textContent = "Ã‚ÃŠÃ‹";
 	textOn.style.position = "relative";
 	textOn.style.zIndex = "2";
 
@@ -925,7 +927,7 @@ const createCustomTabSettings = () => {
 
 	const header = document.createElement("div");
 	header.className = "main-menu-settings__group-title";
-	header.textContent = "ÌÎÄÛ";
+	header.textContent = "ÃŒÃÃ„Ã›";
 
 	const content = document.createElement("div");
 	content.className = "main-menu-settings__list";
