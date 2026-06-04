@@ -1,5 +1,5 @@
 script_name("CEF Character Stats")
-script_version("1.0")
+script_version('1.0')
 
 local AUTHOR_NAME = "RAYMOND"
 local TELEGRAM_URL = "https://t.me/raymondes"
@@ -4388,7 +4388,7 @@ end
 local function valueOrDash(v)
     v = trim(stripOuterBrackets(v or ""))
     if v == "" then
-        return ""
+        return "—"
     end
     return v
 end
@@ -4419,7 +4419,7 @@ end
 
 local function formatMoneyValue(value)
     local s = valueOrDash(value)
-    if s == "" then
+    if s == "—" then
         return s
     end
 
@@ -4438,7 +4438,7 @@ end
 
 local function formatPlainValue(value)
     local s = valueOrDash(value)
-    if s == "" then
+    if s == "—" then
         return s
     end
 
@@ -4457,7 +4457,7 @@ end
 
 local function formatAzValue(value)
     local s = valueOrDash(value)
-    if s == "" then
+    if s == "—" then
         return s
     end
 
@@ -4476,7 +4476,7 @@ end
 
 local function cleanFireRateValue(value)
     local s = valueOrDash(value)
-    s = s:gsub("%s*[Ññ]êîðîñòðåëüíîñòè", "")
+    s = s:gsub("%s*[Сс]корострельности", "")
     s = trim(s)
     return valueOrDash(s)
 end
@@ -4494,14 +4494,14 @@ end
 local function toneClass(value)
     local v = tostring(valueOrDash(value))
 
-    if v:find("Èìååòñÿ", 1, true)
-    or v:find("Ïðèîáðåòåíà", 1, true)
-    or v:find("Ïðèñóòñòâóåò", 1, true)
-    or v:find("Íåò çàâèñèìîñòè", 1, true) then
+    if v:find("Имеется", 1, true)
+    or v:find("Приобретена", 1, true)
+    or v:find("Присутствует", 1, true)
+    or v:find("Нет зависимости", 1, true) then
         return "good"
     end
 
-    if v:find("Íåàêòèâåí", 1, true)
+    if v:find("Неактивен", 1, true)
     or v == "0"
     or v == "0%"
     or v == "[0]" then
@@ -4512,7 +4512,7 @@ local function toneClass(value)
     or v:find("PayDay", 1, true)
     or v:find("LV", 1, true)
     or v:find("Premium", 1, true)
-    or v:find("Ïðåìèóì", 1, true)
+    or v:find("Премиум", 1, true)
     or v:find("^AZ ", 1) then
         return "gold"
     end
@@ -4534,32 +4534,32 @@ end
 
 local function looksLikeStatsPiece(text)
     local s = stripColorTags(text or "")
-    return s:find("Îñíîâíàÿ ñòàòèñòèêà", 1, true)
-        or s:find("Íîìåð àêêàóíòà", 1, true)
-        or s:find("Àâòîðèçàöèÿ íà ñåðâåðå", 1, true)
-        or s:find("Òåêóùåå ñîñòîÿíèå ñ÷åòà", 1, true)
-        or s:find("Òàëîí", 1, true)
-        or s:find("Èìÿ:", 1, true)
-        or s:find("Ïîë:", 1, true)
-        or s:find("Çäîðîâüå:", 1, true)
-        or s:find("Óðîâåíü:", 1, true)
-        or s:find("Ðàáîòà:", 1, true)
-        or s:find("Íîìåð òåëåôîíà", 1, true)
-        or s:find("Óðîâåíü ðîçûñêà:", 1, true)
-        or s:find("Çàêîíîïîñëóøíîñòü:", 1, true)
-        or s:find("Çàùèòà:", 1, true)
-        or s:find("Ðåãåíåðàöèÿ:", 1, true)
-        or s:find("Óäà÷à:", 1, true)
-        or s:find("Ïðåäóïðåæäåíèÿ:", 1, true)
-        or s:find("Ñåìüÿ:", 1, true)
-        or s:find("Îòåëü:", 1, true)
-        or s:find("Òðåéëåð:", 1, true)
-        or s:find("Äåíüãè íà äåïîçèò", 1, true)
-        or s:find("Äåíüãè íà äåïîçèòå", 1, true)
+    return s:find("Основная статистика", 1, true)
+        or s:find("Номер аккаунта", 1, true)
+        or s:find("Авторизация на сервере", 1, true)
+        or s:find("Текущее состояние счета", 1, true)
+        or s:find("Талон", 1, true)
+        or s:find("Имя:", 1, true)
+        or s:find("Пол:", 1, true)
+        or s:find("Здоровье:", 1, true)
+        or s:find("Уровень:", 1, true)
+        or s:find("Работа:", 1, true)
+        or s:find("Номер телефона", 1, true)
+        or s:find("Уровень розыска:", 1, true)
+        or s:find("Законопослушность:", 1, true)
+        or s:find("Защита:", 1, true)
+        or s:find("Регенерация:", 1, true)
+        or s:find("Удача:", 1, true)
+        or s:find("Предупреждения:", 1, true)
+        or s:find("Семья:", 1, true)
+        or s:find("Отель:", 1, true)
+        or s:find("Трейлер:", 1, true)
+        or s:find("Деньги на депозит", 1, true)
+        or s:find("Деньги на депозите", 1, true)
         or s:find("AZ%-Coins", 1, true)
         or s:find("AZ Coins", 1, true)
-        or s:find("Ïðåäìåòû", 1, true)
-        or s:find("Çàêðûòü", 1, true)
+        or s:find("Предметы", 1, true)
+        or s:find("Закрыть", 1, true)
 end
 
 function cursor(toggle)
@@ -5317,7 +5317,7 @@ end
 
 local function renderSection(containerId, icon, title, subtitle, inner, extraClass)
     if inner == "" then
-        inner = '<div class="ml-empty">Íåò äàííûõ</div>'
+        inner = '<div class="ml-empty">Нет данных</div>'
     end
 
     return [[
@@ -5419,7 +5419,7 @@ end
 
 local function formatMoneyBracket(value)
     if value == nil then
-        return ""
+        return "—"
     end
 
     local s = normalizeIntegerString(value)
@@ -5461,9 +5461,9 @@ local function detectPaydayMultiplier(...)
 
     local function normalizeProbe(part)
         local s = tostring(part or "")
-        s = s:gsub("×", "x")
-        s = s:gsub("Õ", "x")
-        s = s:gsub("õ", "x")
+        s = s:gsub("Ч", "x")
+        s = s:gsub("Х", "x")
+        s = s:gsub("х", "x")
         s = s:gsub("%s+", "")
         s = s:lower()
         return s
@@ -5558,7 +5558,7 @@ local function parseStats(rawText)
         local v = trim(value)
         local ok = true
 
-        local accIndex = k:match("^Ñîñòîÿíèå ëè÷íîãî ñ÷åò[à¸]%s*¹%s*(%d+)$")
+        local accIndex = k:match("^Состояние личного счет[аё]%s*№%s*(%d+)$")
         if accIndex then
             accIndex = tonumber(accIndex)
             if accIndex and accIndex >= 1 and accIndex <= 6 then
@@ -5568,9 +5568,9 @@ local function parseStats(rawText)
             end
         end
 
-        if k:find("Íîìåð àêêàóíòà", 1, true) then parsed.accountNumber = v
-        elseif k:find("Àâòîðèçàöèÿ íà ñåðâåðå", 1, true) then parsed.authDate = v
-        elseif k:find("Òåêóùåå ñîñòîÿíèå ñ÷åòà", 1, true) then parsed.accountState = v
+        if k:find("Номер аккаунта", 1, true) then parsed.accountNumber = v
+        elseif k:find("Авторизация на сервере", 1, true) then parsed.authDate = v
+        elseif k:find("Текущее состояние счета", 1, true) then parsed.accountState = v
         elseif fullLine:find("PayDay", 1, true) or fullLine:find("PAYDAY", 1, true) or fullLine:find("payday", 1, true) then
             local paydayMultiplier = detectPaydayMultiplier(k, fullLine, v)
             if paydayMultiplier == "x3" then
@@ -5581,51 +5581,51 @@ local function parseStats(rawText)
                 ok = false
             end
 
-        elseif k == "Èìÿ" then parsed.name = v
-        elseif k == "Ïîë" then parsed.gender = v
-        elseif k == "Çäîðîâüå" then parsed.health = v
-        elseif k == "Óðîâåíü" then parsed.level = v
-        elseif k == "Óâàæåíèå" then parsed.respect = v
+        elseif k == "Имя" then parsed.name = v
+        elseif k == "Пол" then parsed.gender = v
+        elseif k == "Здоровье" then parsed.health = v
+        elseif k == "Уровень" then parsed.level = v
+        elseif k == "Уважение" then parsed.respect = v
 
-        elseif k:find("Íàëè÷íûå äåíüãè %(SA%$%)") then parsed.cashSas = v
-        elseif k:find("Íàëè÷íûå äåíüãè %(VC%$%)") then parsed.cashVcs = v
-        elseif k == "Åâðî" then parsed.euro = v
+        elseif k:find("Наличные деньги %(SA%$%)") then parsed.cashSas = v
+        elseif k:find("Наличные деньги %(VC%$%)") then parsed.cashVcs = v
+        elseif k == "Евро" then parsed.euro = v
         elseif k == "BTC" then parsed.btc = v
         elseif k:find("AZ%-Coins", 1, true) or k:find("AZ Coins", 1, true) then parsed.azCoins = v
-        elseif k == "Íîìåð òåëåôîíà" then parsed.phone = v
-        elseif k == "Äåíüãè â áàíêå" then parsed.bank = v
-        elseif k == "Äåíüãè íà äåïîçèò" or k == "Äåíüãè íà äåïîçèòå" or k:find("Äåíüãè íà äåïîçèò", 1, true) or k:find("Äåíüãè íà äåïîçèòå", 1, true) then parsed.moneyDay = v
+        elseif k == "Номер телефона" then parsed.phone = v
+        elseif k == "Деньги в банке" then parsed.bank = v
+        elseif k == "Деньги на депозит" or k == "Деньги на депозите" or k:find("Деньги на депозит", 1, true) or k:find("Деньги на депозите", 1, true) then parsed.moneyDay = v
 
-        elseif k == "Ðàáîòà" then parsed.job = v
-        elseif k == "Îðãàíèçàöèÿ" then parsed.org = v
-        elseif k == "Äîëæíîñòü" then parsed.position = v
-        elseif k == "Ñòàòóñ" then parsed.status = v
-        elseif k == "Ãðàæäàíñòâî" then parsed.citizenship = v
-        elseif k == "Ñåìüÿ" then parsed.family = v
+        elseif k == "Работа" then parsed.job = v
+        elseif k == "Организация" then parsed.org = v
+        elseif k == "Должность" then parsed.position = v
+        elseif k == "Статус" then parsed.status = v
+        elseif k == "Гражданство" then parsed.citizenship = v
+        elseif k == "Семья" then parsed.family = v
 
-        elseif k == "Óðîâåíü ðîçûñêà" then parsed.wanted = v
-        elseif k == "Çàêîíîïîñëóøíîñòü" then parsed.lawfulness = v
-        elseif k == "Ïðåäóïðåæäåíèÿ" then parsed.warnings = v
-        elseif k:find("Çàâèñèìîñòü îò óêðîïà", 1, true) then parsed.addiction = v
-        elseif k == "Áàíêîâñêàÿ êàðòà" then parsed.bankCard = v
+        elseif k == "Уровень розыска" then parsed.wanted = v
+        elseif k == "Законопослушность" then parsed.lawfulness = v
+        elseif k == "Предупреждения" then parsed.warnings = v
+        elseif k:find("Зависимость от укропа", 1, true) then parsed.addiction = v
+        elseif k == "Банковская карта" then parsed.bankCard = v
 
-        elseif k == "Çàùèòà" then parsed.protection = v
-        elseif k == "Ðåãåíåðàöèÿ" then parsed.regen = v
-        elseif k == "Óðîí" then parsed.damage = v
-        elseif k == "Óäà÷à" then parsed.luck = v
-        elseif k == "Ìàêñ. HP" then parsed.maxHp = v
-        elseif k == "Ìàêñ. Áðîíü" or k == "Ìàêñ. áðîíÿ" or k == "Ìàêñ. áðîíè" or ((k:find("Ìàêñ.", 1, true) or k:find("Ìàêñ", 1, true)) and (k:find("Áðîí", 1, true) or k:find("áðîí", 1, true))) then parsed.maxArmor = v
-        elseif k == "Øàíñ îãëóøåíèÿ" then parsed.stunChance = v
-        elseif k == "Øàíñ îïüÿíåíèÿ" or k == "Øàíñ îíåìåíèÿ" then parsed.bleedChance = v
-        elseif k == "Øàíñ èçáåæàòü îãëóøåíèÿ" then parsed.dodgeChance = v
-        elseif k == "Îòðàæåíèå óðîíà" then parsed.reflectDamage = v
-        elseif k == "Áëîêèðîâêà óðîíà" then parsed.blockDamage = v
-        elseif k == "Ñêîðîñòðåëüíîñòü" then parsed.fireRate = v
-        elseif k == "Îòäà÷à" then parsed.recoil = v
-        elseif k:find("Øàíñ îãëóøåíèÿ %(îãëóøàþùèé ïëîä%)") then parsed.fruitStun = v
-        elseif k == "Îòåëü" then parsed.hotel = v
-        elseif k == "Íîìåð â îòåëå" then parsed.hotelRoom = v
-        elseif k == "Òðåéëåð" then parsed.trailer = v
+        elseif k == "Защита" then parsed.protection = v
+        elseif k == "Регенерация" then parsed.regen = v
+        elseif k == "Урон" then parsed.damage = v
+        elseif k == "Удача" then parsed.luck = v
+        elseif k == "Макс. HP" then parsed.maxHp = v
+        elseif k == "Макс. Бронь" or k == "Макс. броня" or k == "Макс. брони" or ((k:find("Макс.", 1, true) or k:find("Макс", 1, true)) and (k:find("Брон", 1, true) or k:find("брон", 1, true))) then parsed.maxArmor = v
+        elseif k == "Шанс оглушения" then parsed.stunChance = v
+        elseif k == "Шанс опьянения" or k == "Шанс онемения" then parsed.bleedChance = v
+        elseif k == "Шанс избежать оглушения" then parsed.dodgeChance = v
+        elseif k == "Отражение урона" then parsed.reflectDamage = v
+        elseif k == "Блокировка урона" then parsed.blockDamage = v
+        elseif k == "Скорострельность" then parsed.fireRate = v
+        elseif k == "Отдача" then parsed.recoil = v
+        elseif k:find("Шанс оглушения %(оглушающий плод%)") then parsed.fruitStun = v
+        elseif k == "Отель" then parsed.hotel = v
+        elseif k == "Номер в отеле" then parsed.hotelRoom = v
+        elseif k == "Трейлер" then parsed.trailer = v
         else
             ok = false
         end
@@ -5644,15 +5644,15 @@ local function parseStats(rawText)
             if key then
                 handleKeyValue(key, value, clean)
             else
-                local armorValue = clean:match("^Ìàêñ%. Áðîíü%s+(.+)$")
-                    or clean:match("^Ìàêñ%. áðîíÿ%s+(.+)$")
-                    or clean:match("^Ìàêñ%. áðîíè%s+(.+)$")
+                local armorValue = clean:match("^Макс%. Бронь%s+(.+)$")
+                    or clean:match("^Макс%. броня%s+(.+)$")
+                    or clean:match("^Макс%. брони%s+(.+)$")
                 if armorValue then
                     parsed.maxArmor = trim(armorValue)
                     mark(clean)
-                elseif clean ~= "Îñíîâíàÿ ñòàòèñòèêà"
-                and clean ~= "Ïðåäìåòû"
-                and clean ~= "Çàêðûòü" then
+                elseif clean ~= "Основная статистика"
+                and clean ~= "Предметы"
+                and clean ~= "Закрыть" then
                     parsed.extra[#parsed.extra + 1] = clean
                 end
             end
@@ -5667,9 +5667,9 @@ local function parseStats(rawText)
         if clean ~= ""
         and not handled[clean]
         and not uniqueExtra[clean]
-        and clean ~= "Îñíîâíàÿ ñòàòèñòèêà"
-        and clean ~= "Ïðåäìåòû"
-        and clean ~= "Çàêðûòü" then
+        and clean ~= "Основная статистика"
+        and clean ~= "Предметы"
+        and clean ~= "Закрыть" then
             uniqueExtra[clean] = true
             filteredExtra[#filteredExtra + 1] = clean
         end
@@ -5697,7 +5697,7 @@ local function buildStatsHtml(parsed)
         user = "&#x1F464;"
     }
 
-    local heroName = valueOrDash(parsed.name ~= "" and parsed.name or "Ïåðñîíàæ")
+    local heroName = valueOrDash(parsed.name ~= "" and parsed.name or "Персонаж")
 
     local accountStateFormatted = formatAzValue(parsed.accountState)
     local cashSasFormatted = formatMoneyValue(parsed.cashSas)
@@ -5725,21 +5725,21 @@ local function buildStatsHtml(parsed)
         topChips = topChips .. renderTopChip(ICONS.star, "X3: " .. formatPaydayChipValue(parsed.x3Payday))
     end
     topChips = topChips .. renderTopChip(ICONS.id, valueOrDash(parsed.accountNumber), "ml-chip-id", "ID")
-    topChips = topChips .. renderTopChip(ICONS.chart, "Óðîâåíü: " .. valueOrDash(parsed.level))
+    topChips = topChips .. renderTopChip(ICONS.chart, "Уровень: " .. valueOrDash(parsed.level))
     topChips = topChips .. renderTopChip(ICONS.sparkles, "EXP: " .. valueOrDash(parsed.respect))
 
     local hero = [[
         <div class="ml-hero">
-            <div class="ml-hero-kicker">ÏÅÐÑÎÍÀÆ</div>
+            <div class="ml-hero-kicker">ПЕРСОНАЖ</div>
             <div class="ml-hero-name"><span style="margin-right:8px;">]] .. ICONS.user .. [[</span>]] .. htmlEscape(heroName) .. [[</div>
             <div class="ml-chip-wrap">]] .. topChips .. [[</div>
         </div>
     ]]
 
     local metrics = ""
-    metrics = metrics .. renderMetric("metric_cash", ICONS.cash, "Íàëè÷íûå SA$", cashSasFormatted, "Îñíîâíûå äåíüãè íà ðóêàõ", "accent-green")
-    metrics = metrics .. renderMetric("metric_bank", ICONS.bank, "Áàíê", bankFormatted, "Îñíîâíîé áàíêîâñêèé ñ÷¸ò", "accent-blue")
-    metrics = metrics .. renderMetric("metric_accounts", ICONS.briefcase, "Âñå ñ÷åòà", totalAccountsFormatted, "Ñóììà ëè÷íûõ ñ÷åòîâ 16", "")
+    metrics = metrics .. renderMetric("metric_cash", ICONS.cash, "Наличные SA$", cashSasFormatted, "Основные деньги на руках", "accent-green")
+    metrics = metrics .. renderMetric("metric_bank", ICONS.bank, "Банк", bankFormatted, "Основной банковский счёт", "accent-blue")
+    metrics = metrics .. renderMetric("metric_accounts", ICONS.briefcase, "Все счета", totalAccountsFormatted, "Сумма личных счетов 1–6", "")
 
     local metricsContainer = [[
         <div class="ml-metrics" data-container="metrics_container">
@@ -5748,51 +5748,51 @@ local function buildStatsHtml(parsed)
     ]]
 
     local leftMain = ""
-    leftMain = leftMain .. renderRow("row_phone", ICONS.phone, "Íîìåð òåëåôîíà", parsed.phone)
-    leftMain = leftMain .. renderRow("row_job", ICONS.pickaxe, "Ðàáîòà", parsed.job)
-    leftMain = leftMain .. renderRow("row_gender", ICONS.gender, "Ïîë", parsed.gender)
-    leftMain = leftMain .. renderRow("row_health", ICONS.heart, "Çäîðîâüå", parsed.health)
-    leftMain = leftMain .. renderRow("row_law", ICONS.scales, "Çàêîíîïîñëóøíîñòü", parsed.lawfulness)
-    leftMain = leftMain .. renderRow("row_family", ICONS.family, "Ñåìüÿ", parsed.family)
-    leftMain = leftMain .. renderRow("row_org", ICONS.building, "Îðãàíèçàöèÿ", parsed.org)
-    leftMain = leftMain .. renderRow("row_pos", ICONS.tie, "Äîëæíîñòü", ((parsed.position or ""):gsub("^%s*%[([^%]]+)%]%s*", "%1 "):gsub("%s*%([^)]*%)%s*$", "")):gsub("%s+$", ""))
-    leftMain = leftMain .. renderRow("row_warn", ICONS.warn, "Ïðåäóïðåæäåíèÿ", parsed.warnings)
+    leftMain = leftMain .. renderRow("row_phone", ICONS.phone, "Номер телефона", parsed.phone)
+    leftMain = leftMain .. renderRow("row_job", ICONS.pickaxe, "Работа", parsed.job)
+    leftMain = leftMain .. renderRow("row_gender", ICONS.gender, "Пол", parsed.gender)
+    leftMain = leftMain .. renderRow("row_health", ICONS.heart, "Здоровье", parsed.health)
+    leftMain = leftMain .. renderRow("row_law", ICONS.scales, "Законопослушность", parsed.lawfulness)
+    leftMain = leftMain .. renderRow("row_family", ICONS.family, "Семья", parsed.family)
+    leftMain = leftMain .. renderRow("row_org", ICONS.building, "Организация", parsed.org)
+    leftMain = leftMain .. renderRow("row_pos", ICONS.tie, "Должность", ((parsed.position or ""):gsub("^%s*%[([^%]]+)%]%s*", "%1 "):gsub("%s*%([^)]*%)%s*$", "")):gsub("%s+$", ""))
+    leftMain = leftMain .. renderRow("row_warn", ICONS.warn, "Предупреждения", parsed.warnings)
 
     local leftFinance = ""
     leftFinance = leftFinance .. renderRowWithClass("row_az", "", "AZ-Coins", accountStateFormatted, "gold", "gold")
-    leftFinance = leftFinance .. renderRow("row_dep", ICONS.inbox, "Äåïîçèò", depositFormatted)
+    leftFinance = leftFinance .. renderRow("row_dep", ICONS.inbox, "Депозит", depositFormatted)
 
-    if hasValue(parsed.acc1) then leftFinance = leftFinance .. renderRow("row_acc1", ICONS.card, "Ñ÷¸ò ¹1", acc1Formatted) end
-    if hasValue(parsed.acc2) then leftFinance = leftFinance .. renderRow("row_acc2", ICONS.card, "Ñ÷¸ò ¹2", acc2Formatted) end
-    if hasValue(parsed.acc3) then leftFinance = leftFinance .. renderRow("row_acc3", ICONS.card, "Ñ÷¸ò ¹3", acc3Formatted) end
-    if hasValue(parsed.acc4) then leftFinance = leftFinance .. renderRow("row_acc4", ICONS.card, "Ñ÷¸ò ¹4", acc4Formatted) end
-    if hasValue(parsed.acc5) then leftFinance = leftFinance .. renderRow("row_acc5", ICONS.card, "Ñ÷¸ò ¹5", acc5Formatted) end
-    if hasValue(parsed.acc6) then leftFinance = leftFinance .. renderRow("row_acc6", ICONS.card, "Ñ÷¸ò ¹6", acc6Formatted) end
+    if hasValue(parsed.acc1) then leftFinance = leftFinance .. renderRow("row_acc1", ICONS.card, "Счёт №1", acc1Formatted) end
+    if hasValue(parsed.acc2) then leftFinance = leftFinance .. renderRow("row_acc2", ICONS.card, "Счёт №2", acc2Formatted) end
+    if hasValue(parsed.acc3) then leftFinance = leftFinance .. renderRow("row_acc3", ICONS.card, "Счёт №3", acc3Formatted) end
+    if hasValue(parsed.acc4) then leftFinance = leftFinance .. renderRow("row_acc4", ICONS.card, "Счёт №4", acc4Formatted) end
+    if hasValue(parsed.acc5) then leftFinance = leftFinance .. renderRow("row_acc5", ICONS.card, "Счёт №5", acc5Formatted) end
+    if hasValue(parsed.acc6) then leftFinance = leftFinance .. renderRow("row_acc6", ICONS.card, "Счёт №6", acc6Formatted) end
 
-    if hasValue(parsed.cashVcs) then leftFinance = leftFinance .. renderRow("row_vcs", ICONS.palm, "Íàëè÷íûå VC$", cashVcsFormatted) end
+    if hasValue(parsed.cashVcs) then leftFinance = leftFinance .. renderRow("row_vcs", ICONS.palm, "Наличные VC$", cashVcsFormatted) end
     if hasValue(parsed.btc) then leftFinance = leftFinance .. renderRow("row_btc", ICONS.coin, "BTC", btcFormatted) end
-    if hasValue(parsed.euro) then leftFinance = leftFinance .. renderRow("row_euro", ICONS.euro, "Åâðî", euroFormatted) end
+    if hasValue(parsed.euro) then leftFinance = leftFinance .. renderRow("row_euro", ICONS.euro, "Евро", euroFormatted) end
 
     local rightStats = ""
-    rightStats = rightStats .. renderStatChip("stat_prot", ICONS.shield, "Çàùèòà", parsed.protection)
-    rightStats = rightStats .. renderStatChip("stat_regen", ICONS.regen, "Ðåãåíåðàöèÿ", parsed.regen)
-    rightStats = rightStats .. renderStatChip("stat_dmg", ICONS.swords, "Óðîí", parsed.damage)
-    rightStats = rightStats .. renderStatChip("stat_luck", ICONS.clover, "Óäà÷à", parsed.luck)
-    rightStats = rightStats .. renderStatChip("stat_hp", ICONS.blood, "Ìàêñ. HP", parsed.maxHp)
-    rightStats = rightStats .. renderStatChip("stat_armor", ICONS.vest, "Ìàêñ. áðîíÿ", parsed.maxArmor)
-    rightStats = rightStats .. renderStatChip("stat_stun", ICONS.dizzy, "Øàíñ îãëóøåíèÿ", parsed.stunChance)
-    rightStats = rightStats .. renderStatChip("stat_bleed", ICONS.woozy, "Øàíñ îïüÿíåíèÿ", parsed.bleedChance)
-    rightStats = rightStats .. renderStatChip("stat_dodge", ICONS.run, "Èçáåæàòü îãëóøåíèÿ", parsed.dodgeChance)
-    rightStats = rightStats .. renderStatChip("stat_refl", ICONS.mirror, "Îòðàæåíèå óðîíà", parsed.reflectDamage)
-    rightStats = rightStats .. renderStatChip("stat_block", ICONS.brick, "Áëîêèðîâêà óðîíà", parsed.blockDamage)
-    rightStats = rightStats .. renderStatChip("stat_fire", ICONS.gun, "Ñêîðîñòðåëüíîñòü", fireRateFormatted)
-    rightStats = rightStats .. renderStatChip("stat_rec", ICONS.target, "Îòäà÷à", parsed.recoil)
-    rightStats = rightStats .. renderStatChip("stat_fruit", ICONS.apple, "Ïëîä", parsed.fruitStun)
+    rightStats = rightStats .. renderStatChip("stat_prot", ICONS.shield, "Защита", parsed.protection)
+    rightStats = rightStats .. renderStatChip("stat_regen", ICONS.regen, "Регенерация", parsed.regen)
+    rightStats = rightStats .. renderStatChip("stat_dmg", ICONS.swords, "Урон", parsed.damage)
+    rightStats = rightStats .. renderStatChip("stat_luck", ICONS.clover, "Удача", parsed.luck)
+    rightStats = rightStats .. renderStatChip("stat_hp", ICONS.blood, "Макс. HP", parsed.maxHp)
+    rightStats = rightStats .. renderStatChip("stat_armor", ICONS.vest, "Макс. броня", parsed.maxArmor)
+    rightStats = rightStats .. renderStatChip("stat_stun", ICONS.dizzy, "Шанс оглушения", parsed.stunChance)
+    rightStats = rightStats .. renderStatChip("stat_bleed", ICONS.woozy, "Шанс опьянения", parsed.bleedChance)
+    rightStats = rightStats .. renderStatChip("stat_dodge", ICONS.run, "Избежать оглушения", parsed.dodgeChance)
+    rightStats = rightStats .. renderStatChip("stat_refl", ICONS.mirror, "Отражение урона", parsed.reflectDamage)
+    rightStats = rightStats .. renderStatChip("stat_block", ICONS.brick, "Блокировка урона", parsed.blockDamage)
+    rightStats = rightStats .. renderStatChip("stat_fire", ICONS.gun, "Скорострельность", fireRateFormatted)
+    rightStats = rightStats .. renderStatChip("stat_rec", ICONS.target, "Отдача", parsed.recoil)
+    rightStats = rightStats .. renderStatChip("stat_fruit", ICONS.apple, "Плод", parsed.fruitStun)
 
     local propertyBlock = ""
-    propertyBlock = propertyBlock .. renderRow("prop_hotel", ICONS.hotel, "Îòåëü", parsed.hotel)
-    propertyBlock = propertyBlock .. renderRow("prop_room", ICONS.key, "Íîìåð â îòåëå", parsed.hotelRoom)
-    propertyBlock = propertyBlock .. renderRow("prop_trailer", ICONS.van, "Òðåéëåð", trailerFormatted)
+    propertyBlock = propertyBlock .. renderRow("prop_hotel", ICONS.hotel, "Отель", parsed.hotel)
+    propertyBlock = propertyBlock .. renderRow("prop_room", ICONS.key, "Номер в отеле", parsed.hotelRoom)
+    propertyBlock = propertyBlock .. renderRow("prop_trailer", ICONS.van, "Трейлер", trailerFormatted)
 
     local leftColumn = [[
         <div class="ml-col">
@@ -5800,8 +5800,8 @@ local function buildStatsHtml(parsed)
                 ]] .. hero .. [[
                 ]] .. metricsContainer .. [[
                 <div class="ml-grid-two">
-                    ]] .. renderSection("main_container", ICONS.doc, "Îñíîâíûå äàííûå", "ÏÅÐÑÎÍÀÆ", leftMain) .. [[
-                    ]] .. renderSection("finance_container", ICONS.moneybag, "Ôèíàíñû", "Ñ×ÅÒÀ È ÂÀËÞÒÛ", leftFinance) .. [[
+                    ]] .. renderSection("main_container", ICONS.doc, "Основные данные", "ПЕРСОНАЖ", leftMain) .. [[
+                    ]] .. renderSection("finance_container", ICONS.moneybag, "Финансы", "СЧЕТА И ВАЛЮТЫ", leftFinance) .. [[
                 </div>
             </div>
         </div>
@@ -5810,8 +5810,8 @@ local function buildStatsHtml(parsed)
     local rightColumn = [[
         <div class="ml-col">
             <div class="ml-stack">
-                ]] .. renderSection("stats_container", ICONS.stats, "Õàðàêòåðèñòèêè", "ÁÎÅÂÛÅ È ÏÀÑÑÈÂÍÛÅ ÁÎÍÓÑÛ", rightStats, "ml-chip-grid") .. [[
-                ]] .. renderSection("prop_container", ICONS.house, "Èìóùåñòâî", "ÎÒÅËÜ È ÒÐÅÉËÅÐ", propertyBlock) .. [[
+                ]] .. renderSection("stats_container", ICONS.stats, "Характеристики", "БОЕВЫЕ И ПАССИВНЫЕ БОНУСЫ", rightStats, "ml-chip-grid") .. [[
+                ]] .. renderSection("prop_container", ICONS.house, "Имущество", "ОТЕЛЬ И ТРЕЙЛЕР", propertyBlock) .. [[
             </div>
         </div>
     ]]
@@ -5866,8 +5866,8 @@ local function buildTextFromCollector()
         line = trim(line)
 
         if line ~= ""
-        and line ~= "Ïðåäìåòû"
-        and line ~= "Çàêðûòü"
+        and line ~= "Предметы"
+        and line ~= "Закрыть"
         and not seen[line] then
             seen[line] = true
             lines[#lines + 1] = line
@@ -5881,7 +5881,7 @@ local function renderParsedStats(rawText)
     logLine("INFO", "renderParsedStats: rawLen=" .. tostring(#tostring(rawText or "")))
     local parsed = parseStats(rawText)
     local html = buildStatsHtml(parsed)
-    local status = "Îáíîâëåíî: " .. os.date("%H:%M:%S")
+    local status = "Обновлено: " .. os.date("%H:%M:%S")
     setWindowContent(html, status)
 end
 
@@ -5907,14 +5907,14 @@ local function cacheStatsIfLooksValid(raw)
         return false
     end
 
-    if text:find("Íîìåð àêêàóíòà", 1, true)
-    or text:find("Èìÿ:", 1, true)
-    or text:find("Íîìåð òåëåôîíà", 1, true)
-    or text:find("Ðàáîòà:", 1, true)
-    or text:find("Óðîâåíü ðîçûñêà:", 1, true)
-    or text:find("Çàùèòà:", 1, true)
-    or text:find("Äåíüãè íà äåïîçèò", 1, true)
-    or text:find("Äåíüãè íà äåïîçèòå", 1, true)
+    if text:find("Номер аккаунта", 1, true)
+    or text:find("Имя:", 1, true)
+    or text:find("Номер телефона", 1, true)
+    or text:find("Работа:", 1, true)
+    or text:find("Уровень розыска:", 1, true)
+    or text:find("Защита:", 1, true)
+    or text:find("Деньги на депозит", 1, true)
+    or text:find("Деньги на депозите", 1, true)
     or text:find("AZ%-Coins", 1, true)
     or text:find("AZ Coins", 1, true) then
         logLine("INFO", "cacheStatsIfLooksValid: accepted, rawLen=" .. tostring(#text))
@@ -5940,7 +5940,7 @@ local function requestStats()
     clearCollector()
 
     logLine("INFO", "requestStats: /stats sent")
-    setWindowStatus("Îáíîâëåíèå ñòàòèñòèêè...")
+    setWindowStatus("Обновление статистики...")
     sampSendChat("/stats")
 end
 
@@ -5973,7 +5973,7 @@ local function openCefWindow()
     if lastRawStats ~= "" then
         renderParsedStats(lastRawStats)
     else
-        setWindowContent(buildLoadingHtml("Çàãðóçêà ñòàòèñòèêè..."), "Îòêðûòèå îêíà...")
+        setWindowContent(buildLoadingHtml("Загрузка статистики..."), "Открытие окна...")
     end
 
     requestStats()
@@ -6003,8 +6003,8 @@ local function handleShowDialog(dialogId, style, title, button1, button2, text)
     local tTitle = tostring(title or "")
     local tText = tostring(text or "")
 
-    if tTitle:find("ñòàò", 1, true)
-    or tTitle:find("Ñòàò", 1, true)
+    if tTitle:find("стат", 1, true)
+    or tTitle:find("Стат", 1, true)
     or looksLikeStatsPiece(tText) then
         logLine("INFO", "onShowDialog stats candidate: title=" .. shortLogText(tTitle, 80) .. ", textLen=" .. tostring(#tText))
         if cacheStatsIfLooksValid(tText) then
@@ -6106,7 +6106,7 @@ function main()
             openCefWindow()
         end)
 
-        sampAddChatMessage("{66CCFF}[CEF] Çàãðóæåíî. Îòêðûòü ñòàòèñòèêó: /stats èëè F3", -1)
+        sampAddChatMessage("{66CCFF}[CEF] Загружено. Открыть статистику: /stats или F3", -1)
 
         while true do
             wait(0)
@@ -6134,8 +6134,8 @@ function main()
                         renderParsedStats(lastRawStats)
                     elseif cefVisible then
                         setWindowContent(
-                            buildLoadingHtml("Íå óäàëîñü ïîéìàòü òåêñò /stats. Âîçìîæíî, íà òâî¸ì ñåðâåðå ñòðóêòóðà îêíà îòëè÷àåòñÿ."),
-                            "Íå óäàëîñü îáíîâèòü"
+                            buildLoadingHtml("Не удалось поймать текст /stats. Возможно, на твоём сервере структура окна отличается."),
+                            "Не удалось обновить"
                         )
                     end
                 end
