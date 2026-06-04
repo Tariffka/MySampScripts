@@ -1,7 +1,7 @@
 script_name("Script Manager")
 script_author("tarif_jan")
 script_version("1.1")
-
+    
 local imgui = require 'mimgui'
 local encoding = require 'encoding'
 local os = require 'os'
@@ -78,6 +78,15 @@ function findScriptByFilename(filename)
     return nil
 end
 
+function getLocalScriptVersion(filepath)
+    local f = io.open(filepath, "r")
+    if not f then return nil end
+    local content = f:read("*all")
+    f:close()
+    local ver = content:match("script_version%s*%(%s*['\"](.-)['\"]%s*%)")
+    return ver
+end
+
 function loadCatalog()
     local randomId = os.time()
     local noCacheUrl = catalogBaseUrl .. "?nocache=" .. randomId
@@ -93,6 +102,12 @@ function loadCatalog()
                 
                 local success, result = pcall(cjson.decode, content)
                 if success then
+                    for _, item in ipairs(result) do
+                        local fPath = getWorkingDirectory() .. "\\" .. item.filename
+                        if fileExists(fPath) then
+                            item.localVersion = getLocalScriptVersion(fPath)
+                        end
+                    end
                     scriptsCatalog = result
                 end
             end
@@ -165,12 +180,29 @@ local newFrame = imgui.OnFrame(
                 
                 if matchInstalled then
                     local prefix = isInstalled and (fa("CHECK") .. "  ") or "      "
+                    local label = prefix .. (item.name or "Безымянный скрипт")
                     
-                    -- Слегка увеличиваем отступы элементов для красоты
+                    local needsUpdate = false
+                    if isInstalled and item.version then
+                        if not item.localVersion or item.localVersion ~= item.version then
+                            needsUpdate = true
+                        end
+                    end
+                    
                     imgui.PushStyleVarVec2(imgui.StyleVar.ItemSpacing, imgui.ImVec2(8, 8))
-                    if imgui.Selectable(prefix .. item.name, selectedScriptIdx == i) then
+                    
+                    local selectableLabel = label
+                    if needsUpdate then selectableLabel = selectableLabel .. "                    " end
+                    
+                    if imgui.Selectable(selectableLabel, selectedScriptIdx == i) then
                         selectedScriptIdx = i
                     end
+                    
+                    if needsUpdate then
+                        imgui.SameLine(imgui.CalcTextSize(label).x + 25)
+                        imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 1.0), "(Нужно обновить)")
+                    end
+                    
                     imgui.PopStyleVar()
                 end
             end
@@ -194,13 +226,21 @@ local newFrame = imgui.OnFrame(
                     if ColoredButton(fa("WRENCH") .. " Установить скрипт", topBtnColor, imgui.ImVec2(rightPanelWidth - 15, btnHeight)) then
                         chat("{FF9900}Script Manager: {FFFFFF}Устанавливаю скрипт: {33CC33}" .. activeScript.filename)
                         
-                        if runningScript then runningScript:unload() end
+                        if runningScript and activeScript.filename ~= thisScript().filename then 
+                            runningScript:unload() 
+                        end
+                        
                         local scriptNoCacheUrl = activeScript.url .. "?nocache=" .. os.time()
                         downloadUrlToFile(scriptNoCacheUrl, filePath, function(id, status, p1, p2)
                             if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-                                script.load(filePath)
+                                if activeScript.filename == thisScript().filename then
+                                    thisScript():reload()
+                                else
+                                    script.load(filePath)
+                                end
+                                activeScript.localVersion = getLocalScriptVersion(filePath)
                                 local cmdText = (activeScript.command and activeScript.command ~= "") and activeScript.command or "отсутствует"
-                                chat("{FF9900}" .. activeScript.name .. ": {FFFFFF}Загружен. Команда: " .. cmdText .. ".")
+                                chat("{FF9900}" .. (activeScript.name or "Скрипт") .. ": {FFFFFF}Загружен. Команда: " .. cmdText .. ".")
                             end
                         end)
                     end
@@ -209,13 +249,21 @@ local newFrame = imgui.OnFrame(
                     if ColoredButton(fa("ROTATE") .. " Обновить скрипт", topBtnColor, imgui.ImVec2(updateBtnWidth, btnHeight)) then
                         chat("{FF9900}Script Manager: {FFFFFF}Обновляю скрипт: {33CC33}" .. activeScript.filename)
                         
-                        if runningScript then runningScript:unload() end
+                        if runningScript and activeScript.filename ~= thisScript().filename then 
+                            runningScript:unload() 
+                        end
+                        
                         local scriptNoCacheUrl = activeScript.url .. "?nocache=" .. os.time()
                         downloadUrlToFile(scriptNoCacheUrl, filePath, function(id, status, p1, p2)
                             if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-                                script.load(filePath)
+                                if activeScript.filename == thisScript().filename then
+                                    thisScript():reload()
+                                else
+                                    script.load(filePath)
+                                end
+                                activeScript.localVersion = getLocalScriptVersion(filePath)
                                 local cmdText = (activeScript.command and activeScript.command ~= "") and activeScript.command or "отсутствует"
-                                chat("{FF9900}" .. activeScript.name .. ": {FFFFFF}Успешно обновлен. Команда: " .. cmdText .. ".")
+                                chat("{FF9900}" .. (activeScript.name or "Скрипт") .. ": {FFFFFF}Успешно обновлен. Команда: " .. cmdText .. ".")
                             end
                         end)
                     end
@@ -238,7 +286,10 @@ local newFrame = imgui.OnFrame(
                 imgui.TextColored(imgui.ImVec4(0.2, 0.8, 0.2, 1.0), activeScript.name)
                 imgui.SameLine()
                 imgui.TextDisabled("(имя файла: " .. activeScript.filename .. ")")
-                
+                if isInstalled and activeScript.localVersion then
+                    imgui.SameLine()
+                    imgui.TextColored(imgui.ImVec4(0.4, 0.6, 0.8, 1.0), "v" .. activeScript.localVersion)
+                end
                 -- Отступ перед кнопками
                 imgui.Dummy(imgui.ImVec2(0, 15))
                 imgui.Separator()
