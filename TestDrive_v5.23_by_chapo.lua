@@ -198,7 +198,7 @@ local ui_meta = {
         if v == "switch" then
             local switch = function()
                 if self.process and self.process:status() ~= "dead" then
-                    return false -- // Ïðåäûäóùàÿ àíèìàöèÿ åù¸ íå çàâåðøèëàñü!
+                    return false -- // Предыдущая анимация ещё не завершилась!
                 end
                 self.timer = os.clock()
                 self.state = not self.state
@@ -219,7 +219,7 @@ local ui_meta = {
                         if a == 1.00 then break end
                     end
                 end)
-                return true -- // Ñîñòîÿíèå îêíà èçìåíåíî!
+                return true -- // Состояние окна изменено!
             end
             return switch
         end
@@ -447,16 +447,16 @@ function getObjectMaterialText(objectId)
 end
 
 local typeIcon = {
-    launcher = { icon = faicons('STAR'), label = 'Ëàóí÷åð', state = imgui.new.bool(false) },
-    car = { icon = faicons('CAR'), label = 'Ìàøèíû', state = imgui.new.bool(true) },
-    bike = { icon = faicons('MOTORCYCLE'), label = 'Ìîòîöèêëû', state = imgui.new.bool(true) },
-    mtruck = { icon = faicons('TRUCK_MONSTER'), label = 'Áîëüøèå', state = imgui.new.bool(true) },
-    heli = { icon = faicons('HELICOPTER'), label = 'Âåðòîëåòû', state = imgui.new.bool(true) },
-    boat = { icon = faicons('SAILBOAT'), label = 'Ëîäêè', state = imgui.new.bool(true) },
-    trailer = { icon = faicons('TRAILER'), label = 'Ïðèöåïû', state = imgui.new.bool(true) },
-    plane = { icon = faicons('PLANE'), label = 'Ñàìîëåòû', state = imgui.new.bool(true) },
-    bmx = { icon = faicons('BICYCLE'), label = 'Âåëîñèïåäû', state = imgui.new.bool(true) },
-    train = { icon = faicons('TRAIN'), label = 'Ïîåçäà', state = imgui.new.bool(true) },
+    launcher = { icon = faicons('STAR'), label = 'Лаунчер', state = imgui.new.bool(false) },
+    car = { icon = faicons('CAR'), label = 'Машины', state = imgui.new.bool(true) },
+    bike = { icon = faicons('MOTORCYCLE'), label = 'Мотоциклы', state = imgui.new.bool(true) },
+    mtruck = { icon = faicons('TRUCK_MONSTER'), label = 'Большие', state = imgui.new.bool(true) },
+    heli = { icon = faicons('HELICOPTER'), label = 'Вертолеты', state = imgui.new.bool(true) },
+    boat = { icon = faicons('SAILBOAT'), label = 'Лодки', state = imgui.new.bool(true) },
+    trailer = { icon = faicons('TRAILER'), label = 'Прицепы', state = imgui.new.bool(true) },
+    plane = { icon = faicons('PLANE'), label = 'Самолеты', state = imgui.new.bool(true) },
+    bmx = { icon = faicons('BICYCLE'), label = 'Велосипеды', state = imgui.new.bool(true) },
+    train = { icon = faicons('TRAIN'), label = 'Поезда', state = imgui.new.bool(true) },
 };
 
 local this = {
@@ -477,10 +477,10 @@ local this = {
 
 function this.start(model, x, y, z, heading)
     if (this.active) then
-        return msg('îøèáêà, çàâåðøèòå òåñò äðàéâ!');
+        return msg('ошибка, завершите тест драйв!');
     end
     if (isCharInAnyCar(PLAYER_PED)) then
-        return msg('îøèáêà, ïîêèíüòå òðàíñïîðò!')
+        return msg('ошибка, покиньте транспорт!')
     end
     if (not hasModelLoaded(model)) then
         requestModel(model);
@@ -496,17 +496,17 @@ function this.start(model, x, y, z, heading)
     if (not this.carHandle or not doesVehicleExist(this.carHandle)) then
         this.active = false;
         setCharCoordinates(PLAYER_PED, table.unpack(this.saved.pos));
-        return msg('îøèáêà ïðè ñïàâíå òðàíñïîðòà!');
+        return msg('ошибка при спавне транспорта!');
     end
     
-    
+    setVehicleInterior(this.carHandle, getCharActiveInterior(PLAYER_PED))
     
     setCarEngineOn(this.carHandle, true);
     changeCarColour(this.carHandle, this.carColors[1], this.carColors[2]);
     setCarHeading(this.carHandle, heading or 0);
 
     warpCharIntoCar(PLAYER_PED, this.carHandle);
-    msg('âû íà÷àëè òåñò-äðàéâ. Äëÿ âûõîäà íàæìèòå F');
+    msg('вы начали тест-драйв. Для выхода нажмите F');
 end
 
 function this.stop()
@@ -517,7 +517,7 @@ function this.stop()
     setCharHeading(PLAYER_PED, this.saved.heading);
     deleteCar(this.carHandle);
     this.active = false;
-    msg('âû çàâåðøèëè òåñò-äðàéâ!');
+    msg('вы завершили тест-драйв!');
 end
 
 function this.init()
@@ -525,7 +525,7 @@ function this.init()
         if (msgId == 0x0100 and this.active) then
             if (param == VK_F and not sampIsCursorActive()) then
                 this.stop();
-                msg('âû îêîí÷èëè òåñò äðàéâ!');
+                msg('вы окончили тест драйв!');
                 consumeWindowMessage(true, true);
             end
         end
@@ -552,13 +552,13 @@ function this.init()
 end
 
 -- function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
---     if (title:find('Ïîêóïêà òðàíñïîðòà')) then
---         return { dialogId, style, title, button1, button2, text .. '\n{9654ff}4. Òåñò äðàéâ' };
+--     if (title:find('Покупка транспорта')) then
+--         return { dialogId, style, title, button1, button2, text .. '\n{9654ff}4. Тест драйв' };
 --     end
 -- end
 --
 -- function sampev.onSendDialogResponse(dialogId, button, listboxId, input)
---     if (sampGetDialogCaption():find('Ïîêóïêà òðàíñïîðòà')) then
+--     if (sampGetDialogCaption():find('Покупка транспорта')) then
 --         if (button == 1 and listboxId == 3) then
 --             local res, data = getNearestCarInfoTable();
 --             if (res) then
@@ -567,13 +567,13 @@ end
 --                     this.openMenuAfterExit = false;
 --                     this.info = data;
 --                     this.start(getCarModel(handle), -1900.0609130859, -1312.4633789063, 39.377853393555, 360);
---                     msg('âû íà÷àëè òåñò äðàéâ "' .. this.info.modelName .. '"!');
---                     msg('âíèìàíèå, ìîäèôèêàöèè (íàïðèìåð ÒÒ) íåàêòèâíû âî âðåìÿ òåñò äðàéâà!');
+--                     msg('вы начали тест драйв "' .. this.info.modelName .. '"!');
+--                     msg('внимание, модификации (например ТТ) неактивны во время тест драйва!');
 --                 else
---                     msg('îøèáêà, íå óäàëîñü îïðåäåëèòü ID ìîäåëè! vehID: ' .. tostring(data.vehId));
+--                     msg('ошибка, не удалось определить ID модели! vehID: ' .. tostring(data.vehId));
 --                 end
 --             else
---                 msg('îøèáêà, íåâîçìîæíî îïðåäåëèòü ID ìàøèíû!');
+--                 msg('ошибка, невозможно определить ID машины!');
 --             end
 --             sampAddChatMessage('test drive', -1);
 --             return { dialogId, 0, listboxId, input };
@@ -636,7 +636,7 @@ imgui.OnInitialize(function()
         for _, size in pairs({ 14, 16, 18, 20, 24 }) do
             local builder = imgui.ImFontGlyphRangesBuilder();
             builder:AddRanges(imgui.GetIO().Fonts:GetGlyphRangesCyrillic());
-            builder:AddText([[¹]]);
+            builder:AddText([[‚„…†‡€‰‹‘’“”•–—™›№]]);
             local range = imgui.ImVector_ImWchar();
             builder:BuildRanges(range);
 
@@ -826,14 +826,14 @@ imgui.OnFrame(
                                     imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(1, 1, 1, hoverAlpha * 10));
                                     
                                     if (veh.texture == nil) then
-                                        if (imgui.Button(faicons('IMAGE') .. u8' Çàãðóçèòü##info' .. index, selectButtonSize)) then
+                                        if (imgui.Button(faicons('IMAGE') .. u8' Загрузить##info' .. index, selectButtonSize)) then
                                             vehicles[index].texture = render_model(veh.id, renderModelSettings);
                                         end
                                     end
-                                    if (imgui.Button(faicons('CIRCLE_INFO') .. u8' Ïîäðîáíåå##info' .. index, selectButtonSize)) then
+                                    if (imgui.Button(faicons('CIRCLE_INFO') .. u8' Подробнее##info' .. index, selectButtonSize)) then
                                         preview = index;
                                     end
-                                    if (imgui.Button(faicons('PLAY') .. u8' Âûáðàòü##select' .. index, selectButtonSize)) then
+                                    if (imgui.Button(faicons('PLAY') .. u8' Выбрать##select' .. index, selectButtonSize)) then
                                         this.openMenuAfterExit = true;
                                         this.info = {
                                             modelName = ('#%d %s'):format(veh.id, veh.model)
@@ -858,18 +858,18 @@ imgui.OnFrame(
                     if (#vehicles == 0) then
                         imgui.PushFont(Font.Medium[24]);
                         imgui.NewLine();
-                        imgui.CenterText(u8'Ñïèñîê òðàíñïîðò íå çàãðóæåí!');
+                        imgui.CenterText(u8'Список транспорт не загружен!');
                         if (loadStatus == 'error') then
-                            imgui.CenterText(u8'Îøèáêà çàãðóçêè:', imgui.ImVec4(1, 0, 0, 1));
+                            imgui.CenterText(u8'Ошибка загрузки:', imgui.ImVec4(1, 0, 0, 1));
                             imgui.TextWrapped(loadError)
                         end
 
                         imgui.SetCursorPosX(imgui.GetWindowWidth() / 2 - 200 / 2);
                         imgui.BeginGroup()
-                        if (imgui.AnimButton(u8'Çàãðóçèòü', imgui.ImVec2(200, 50))) then
-                            msg('çàãðóçêà òðàíñïîðòà...');
+                        if (imgui.AnimButton(u8'Загрузить', imgui.ImVec2(200, 50))) then
+                            msg('загрузка транспорта...');
                             if (not dontLoadModels[0]) then
-                                msg('âî âðåìÿ çàãðóçêè òåêñòóð ïðîèçâîäèòåëüíîñòü èãðû ìîæåò ñíèçèòüñÿ');
+                                msg('во время загрузки текстур производительность игры может снизиться');
                             end
                             loadStatus = 'loading';
                             local status, tempVehicles = loadVehicles(not dontLoadModels[0]);
@@ -925,9 +925,9 @@ imgui.OnFrame(
                         
                         imgui.PopFont();
                         imgui.PushFont(Font.Medium[16])
-                        imgui.CustomCheckbox(u8'Íå çàãðóæàòü òåêñòóðû', dontLoadModels);
+                        imgui.CustomCheckbox(u8'Не загружать текстуры', dontLoadModels);
                         local vehIde = vehiclesIde:gsub(getGameDirectory(), '');
-                        imgui.CenterText(u8'Ñïèñîê áóäåò çàãðóæåí èç: ' .. vehIde);
+                        imgui.CenterText(u8'Список будет загружен из: ' .. vehIde);
                         imgui.EndGroup();
                         imgui.PopFont();
                     else
@@ -964,7 +964,7 @@ imgui.OnFrame(
                                 imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(1, 1, 1, 0.5));
                                 imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(0, 0, 0, 1));
                                 imgui.SetCursorPosX(imgui.GetWindowWidth() / 2 - 200 / 2);
-                                if (imgui.AnimButton(u8'Íàçàä', imgui.ImVec2(200, 50))) then
+                                if (imgui.AnimButton(u8'Назад', imgui.ImVec2(200, 50))) then
                                     preview = nil;
                                 end
                                 imgui.PopStyleColor(4);
@@ -983,7 +983,7 @@ imgui.OnFrame(
             --// Close button
             imgui.SetCursorPos(imgui.ImVec2(size.x - 17 - 16, 8 + 8));
             local pos = imgui.GetCursorScreenPos();
-            if (imgui.InvisibleButton(faicons('XMARK'), imgui.ImVec2(16, 16))) then menu.switch() end -- ÿ íå åáó çà÷åì ýòî òóò, íî ïóñòü áóäåò
+            if (imgui.InvisibleButton(faicons('XMARK'), imgui.ImVec2(16, 16))) then menu.switch() end -- я не ебу зачем это тут, но пусть будет
             if (imgui.CircleIconButton(DL, pos + imgui.ImVec2(8, 9), 8, faicons('CAR'), 'closeWindow', imgui.ImVec4(1, 0.33, 0.33, 1), imgui.ImVec4(1, 0.08, 0.08, 1))) then
                 
             end
@@ -1001,7 +1001,7 @@ imgui.OnFrame(
             imgui.InputText('##search', search, ffi.sizeof(search));
             if (#ffi.string(search) == 0 and not imgui.IsItemActive()) then
                 imgui.SameLine();
-                imgui.CenterText(faicons('MAGNIFYING_GLASS') .. u8' Íàéòè òðàíñïîðò', darkTheme and imgui.ImVec4(1, 1, 1, 0.5) or imgui.ImVec4(0, 0, 0, 0.5));
+                imgui.CenterText(faicons('MAGNIFYING_GLASS') .. u8' Найти транспорт', darkTheme and imgui.ImVec4(1, 1, 1, 0.5) or imgui.ImVec4(0, 0, 0, 0.5));
             end
             imgui.SameLine(size.x / 1.48);
             imgui.PushStyleColor(imgui.Col.Button, colors[imgui.Col.FrameBg]);
@@ -1012,8 +1012,8 @@ imgui.OnFrame(
             imgui.SetNextWindowPos(imgui.GetCursorScreenPos())
             if (imgui.BeginPopup('filters', imgui.WindowFlags.NoMove)) then
                 imgui.PushStyleVarVec2(imgui.StyleVar.ItemSpacing, imgui.ImVec2(2, 2));
-                imgui.CenterText(faicons('FILTER') .. u8' Ôèëüòðû');
-                imgui.CustomCheckbox(faicons('STAR') .. u8' Òîëüêî ñ ëàóí÷åðà##filterLauncher', typeIcon.launcher.state);
+                imgui.CenterText(faicons('FILTER') .. u8' Фильтры');
+                imgui.CustomCheckbox(faicons('STAR') .. u8' Только с лаунчера##filterLauncher', typeIcon.launcher.state);
                 imgui.Spacing();
                 for k, v in pairs(typeIcon) do
                     if (k ~= 'launcher') then
@@ -1021,15 +1021,15 @@ imgui.OnFrame(
                     end
                 end
                 imgui.NewLine();
-                imgui.CenterText(faicons('PALETTE') .. u8' Öâåò òðàíñïîðòà');
+                imgui.CenterText(faicons('PALETTE') .. u8' Цвет транспорта');
                 imgui.TestDriveVehicleColorSelector(1)
                 imgui.SameLine();
-                imgui.Text(u8'Öâåò #1');
+                imgui.Text(u8'Цвет #1');
                 
 
                 imgui.TestDriveVehicleColorSelector(2)
                 imgui.SameLine();
-                imgui.Text(u8'Öâåò #2');
+                imgui.Text(u8'Цвет #2');
 
                 imgui.PopStyleVar();
                 imgui.EndPopup();
@@ -1093,8 +1093,8 @@ imgui.OnFrame(
         if (isCharInAnyCar(PLAYER_PED)) then
             local veh = storeCarCharIsInNoSave(PLAYER_PED);
             local res = imgui.ImVec2(getScreenResolution());
-            local size = imgui.ImVec2(300, 125 + bringFloatTo(self.HideCursor and 55 or 0, self.HideCursor and 0 or 55, uiAnimation.expand.start, 0.3));
-            imgui.SetNextWindowPos(imgui.ImVec2(res.x - 150, res.y - 125 - bringFloatTo(self.HideCursor and 55 or 0, self.HideCursor and 0 or 55, uiAnimation.expand.start, 0.3)), imgui.Cond.Always, imgui.ImVec2(0.5, 0))
+            local size = imgui.ImVec2(300, 150 + bringFloatTo(self.HideCursor and 55 or 0, self.HideCursor and 0 or 55, uiAnimation.expand.start, 0.3));
+            imgui.SetNextWindowPos(imgui.ImVec2(res.x - 150, res.y - 150 - bringFloatTo(self.HideCursor and 55 or 0, self.HideCursor and 0 or 55, uiAnimation.expand.start, 0.3)), imgui.Cond.Always, imgui.ImVec2(0.5, 0))
             imgui.SetNextWindowSize(size, imgui.Cond.Always);
             imgui.PushStyleVarVec2(imgui.StyleVar.ItemSpacing, imgui.ImVec2(10, 5));
             imgui.PushStyleVarFloat(imgui.StyleVar.FrameRounding, 5);
@@ -1148,18 +1148,21 @@ imgui.OnFrame(
                 imgui.SetCursorPosY(imgui.GetCursorPosY() + 7)
                 imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 0.5), 'km/h');
                 imgui.PopFont();
-                imgui.CenterText(u8'Çàæìèòå SHIFT');
+                imgui.CenterText(u8'Зажмите SHIFT');
                 local alpha = bringFloatTo(self.HideCursor and 1 or 0, self.HideCursor and 0 or 1, uiAnimation.expand.start, 0.3);
                 if (alpha > 0) then
                     imgui.PushStyleVarFloat(imgui.StyleVar.Alpha, alpha);
                     imgui.SetCursorPosX(15);
                     imgui.BeginGroup();
-                    if (imgui.Button(u8'[ F ] Çàâåðøèòü', imgui.ImVec2(imgui.GetWindowWidth() - 30, 24))) then
+                    if (imgui.Button(u8'[ F ] Завершить', imgui.ImVec2(imgui.GetWindowWidth() - 30, 24))) then
                         this.stop();
                     end
                     
-                    if (imgui.CustomCheckbox(u8'Äâèãàòåëü', imgui.new.bool(isCarEngineOn(veh)))) then
+                    if (imgui.CustomCheckbox(u8'Двигатель', imgui.new.bool(isCarEngineOn(veh)))) then
                         setCarEngineOn(veh, not isCarEngineOn(veh));
+                    end
+                    if (imgui.CustomCheckbox(u8'Фары', imgui.new.bool(isCarLightOn(veh)))) then
+                        setCarLightsOn(veh, not isCarLightOn(veh));
                     end
                     imgui.EndGroup();
                     imgui.PopStyleVar();
@@ -1176,6 +1179,14 @@ imgui.OnFrame(
     end
 );
 
+function isCarLightOn(car)
+    local light = readMemory(getCarPointer(car) + 0x584, 1, false) -- 0x584 - оффсет на включенность фар
+    -- 1 - передняя правая, 2 - передняя левая, 4 - задняя правая, 8 - задняя левая
+    -- на байках только правые
+
+    return light ~= 0
+end
+
 function imgui.CircleIconButton(DL, pos, radius, icon, strId, color, colorHover)
     local iconSize = imgui.CalcTextSize(icon);
     local hovered = imgui.IsMouseHoveringRect(pos - imgui.ImVec2(radius, radius), pos + imgui.ImVec2(radius, radius));
@@ -1190,16 +1201,16 @@ end
 function getCarHandling(model)
     local modelPointer = memory.getint16( memory.getint32(model * 0x4 + 0xA9B0C8, false) + 0x4A, false);
     return {
-        { name = 'Ìàêñ. ñêîðîñòü', value = ('%d êì/÷'):format(memory.getfloat(modelPointer * 0xE0 + 0xC2B9DC + 0x84, false) * 50)},
-        { name = 'Ìàññà', value = memory.getfloat(modelPointer * 0xE0 + 0xC2B9DC + 0x4, false) },
-        { name = 'Ïåðåäà÷è', value = memory.getint8(modelPointer * 0xE0 + 0xC2B9DC + 0x76, false) },
-        { name = 'Óñêîðåíèå', value = ('%0.4f'):format(memory.getfloat(modelPointer * 0xE0 + 0xC2B9DC + 0x7C, false)) },
-        { name = 'Èíåðöèÿ', value = memory.getfloat(modelPointer * 0xE0 + 0xC2B9DC + 0x80, false) },
-        { name = 'Ïðèâîä', value = ({[82] = 'Ïåðåäíèé', [70] = 'Çàäíèé', [52] = 'Ïîëíûé'})[memory.getint8(modelPointer * 0xE0 + 0xC2B9DC + 0x74, false)] },
-        { name = 'Òèï òîïëèâà', value = ({[80] = 'Áåíçèí', [68] = 'Äèçåëü', [69] = 'Ýëåêòðî'})[memory.getint8(modelPointer * 0xE0 + 0xC2B9DC + 0x75, false)] },
-        { name = 'Òîðìîç', value = ('%0.3f'):format(memory.getfloat(modelPointer * 0xE0 + 0xC2B9DC + 0x94, false)) },
-        { name = 'ABS', value = memory.getint8(modelPointer * 0xE0 + 0xC2B9DC + 0x9C, false) == 1 and 'Äà' or 'Íåò' },
-        { name = 'Óãîë ïîâîðîòà', value = memory.getfloat(modelPointer * 0xE0 + 0xC2B9DC + 0xA0, false) },
+        { name = 'Макс. скорость', value = ('%d км/ч'):format(memory.getfloat(modelPointer * 0xE0 + 0xC2B9DC + 0x84, false) * 50)},
+        { name = 'Масса', value = memory.getfloat(modelPointer * 0xE0 + 0xC2B9DC + 0x4, false) },
+        { name = 'Передачи', value = memory.getint8(modelPointer * 0xE0 + 0xC2B9DC + 0x76, false) },
+        { name = 'Ускорение', value = ('%0.4f'):format(memory.getfloat(modelPointer * 0xE0 + 0xC2B9DC + 0x7C, false)) },
+        { name = 'Инерция', value = memory.getfloat(modelPointer * 0xE0 + 0xC2B9DC + 0x80, false) },
+        { name = 'Привод', value = ({[82] = 'Передний', [70] = 'Задний', [52] = 'Полный'})[memory.getint8(modelPointer * 0xE0 + 0xC2B9DC + 0x74, false)] },
+        { name = 'Тип топлива', value = ({[80] = 'Бензин', [68] = 'Дизель', [69] = 'Электро'})[memory.getint8(modelPointer * 0xE0 + 0xC2B9DC + 0x75, false)] },
+        { name = 'Тормоз', value = ('%0.3f'):format(memory.getfloat(modelPointer * 0xE0 + 0xC2B9DC + 0x94, false)) },
+        { name = 'ABS', value = memory.getint8(modelPointer * 0xE0 + 0xC2B9DC + 0x9C, false) == 1 and 'Да' or 'Нет' },
+        { name = 'Угол поворота', value = memory.getfloat(modelPointer * 0xE0 + 0xC2B9DC + 0xA0, false) },
     };
 end
 
@@ -1222,7 +1233,7 @@ function main()
         vehiclesIde = getGameDirectory() .. '\\data\\vehicles.ide';
 
     end
-    msg('àêòèâàöèÿ: /testdrive')
+    msg('активация: /testdrive')
     this.init();
     -- _, vehicles = loadVehicles()
     
@@ -1231,12 +1242,12 @@ function main()
             menu.switch();
         else
             if (#vehicles == 0) then
-                return msg('îøèáêà, ìîäåëè íå áûëè çàãðóæåíû. Çàãðóçèòå èõ ïðîïèñàâ /testdrive');
+                return msg('ошибка, модели не были загружены. Загрузите их прописав /testdrive');
             end
             local model, color1, color2 = arg:match('^(.+)')
             local modelId = findModelIdByModel(model);
             if (not modelId) then
-                return msg(('ïî çàïðîñó "%s" íè÷åãî íå íàéäåíî!'):format(model));
+                return msg(('по запросу "%s" ничего не найдено!'):format(model));
             end
             local heading, x, y, z = getCharHeading(PLAYER_PED), getCharCoordinates(PLAYER_PED)
             this.start(modelId, x, y, z, heading);
@@ -1546,7 +1557,7 @@ function getNearestCarInfoTable()
                         if (objectText:find('(.+)\n{......}%$(.+)')) then
                             local idPlateText = findModelIdPlate(objectId, x, y, z).text;
                             local name, price = objectText:match('(.+)\n{......}%$(.+)');
-                            local vehId = idPlateText:match('Âëàäåëåö: .+\n{......}id: (%d+)');
+                            local vehId = idPlateText:match('Владелец: .+\n{......}id: (%d+)');
                             
                             result = {
                                 dist = dist,
