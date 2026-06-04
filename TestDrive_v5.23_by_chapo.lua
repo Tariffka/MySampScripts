@@ -9,6 +9,10 @@ require"lib.sampfuncs"
 local Matrix3X3 = require "matrix3x3"
 local Vector3D = require "vector3d"
 
+local encoding = require 'encoding'
+encoding.default = 'CP1251'
+local u8 = encoding.UTF8
+local ev = require('lib.samp.events')
 
 --- Clickwarp stuff (WORKS ONLY IN TESTDRIVE)
 keyToggle = VK_MBUTTON
