@@ -6,6 +6,11 @@ require("moonloader")
 local sampev = require("samp.events")
 local inicfg = require("inicfg")
 
+-- Подключаем библиотеку кодировок
+local encoding = require("encoding")
+encoding.default = 'CP1251'
+local u8 = encoding.UTF8
+
 -- Единый конфигурационный файл для обоих скриптов
 local iniFile = "Taxes_v2.ini"
 local iniData = inicfg.load({
@@ -21,7 +26,8 @@ local isPayingFamHouse = false
 
 -- Удобная функция для вывода сообщений в чат с единым тегом
 function chat(text)
-    sampAddChatMessage("{ffa500}[Taxes v2]{ffffff}: " .. text, -1)
+    -- u8:decode применяется ко всей строке сразу, включая тег
+    sampAddChatMessage(u8:decode("{ffa500}[Taxes v2]{ffffff}: " .. text), -1)
 end
 
 function main()
@@ -126,11 +132,12 @@ function sampev.onShowDialog(id, style, title, button1, button2, text)
     
     -- 1. Логика диалогов для Обычных Налогов (Телефон)
     if isPayingTaxes then
-        if title == "{BFBBBA}" and text:find("{FFFFFF}1. Состояние основного счета") then
-            if text:find("{ffff00}Оплата всех налогов{FFFFFF}") then
+        if title == "{BFBBBA}" and text:find(u8:decode("{FFFFFF}1. Состояние основного счета")) then
+            if text:find(u8:decode("{ffff00}Оплата всех налогов{FFFFFF}")) then
                 local num = 0
                 for line in text:gmatch("[^\r\n]+") do
-                    if line == "{ffff00}Оплата всех налогов{FFFFFF}" then
+                    if line == u8:decode("{ffff00}Оплата всех налогов{FFFFFF}") then
+                        -- line уже в CP1251 от сервера, отправляем как есть
                         sampSendDialogResponse(id, 1, num, line)
                         return false
                     end
@@ -143,11 +150,11 @@ function sampev.onShowDialog(id, style, title, button1, button2, text)
                 return false
             end
 
-        elseif title == "{BFBBBA}Оплата всех налогов" then
+        elseif title == u8:decode("{BFBBBA}Оплата всех налогов") then
             sampSendDialogResponse(id, 1)
             isPayingTaxes = false
 
-            if text == "{00ff00}-{ffffff} У Вас нет налогов, которые требуется оплатить!" then
+            if text == u8:decode("{00ff00}-{ffffff} У Вас нет налогов, которые требуется оплатить!") then
                 chat("У вас нет налогов (телефон), которые можно оплатить.")
             end
             return false
@@ -156,12 +163,14 @@ function sampev.onShowDialog(id, style, title, button1, button2, text)
 
     -- 2. Логика диалогов для Семейной Квартиры
     if isPayingFamHouse then
-        local lowerTitle = title:lower()
-        local lowerText = text:lower()
+        -- Оборачиваем входящий текст в u8, чтобы .lower() корректно обработал русский язык
+        local u8Title = u8(title):lower()
+        local u8Text = u8(text):lower()
 
         -- Максимально гибкая проверка заголовка и текста на ключевые слова
-        if lowerTitle:find('семейн') or lowerTitle:find('квартир') or lowerTitle:find('налог') or lowerText:find('семейную квартиру') then
-            local cleanText = text:gsub('{.-}', '')
+        if u8Title:find('семейн') or u8Title:find('квартир') or u8Title:find('налог') or u8Text:find('семейную квартиру') then
+            -- Очищаем текст уже в кодировке u8
+            local cleanText = u8(text):gsub('{.-}', '')
             
             local taxRaw = cleanText:match('составляет%s*.-(%d[%d%s%.,]*)') or cleanText:match('налог%s*.-(%d[%d%s%.,]*)')
             local tax = nil
@@ -187,9 +196,9 @@ function sampev.onShowDialog(id, style, title, button1, button2, text)
             sampSendDialogResponse(id, 0)
             return false
 
-        elseif lowerTitle:find('информац') and (lowerText:find('теперь налог') or lowerText:find('вы оплатили')) then
+        elseif u8Title:find('информац') and (u8Text:find('теперь налог') or u8Text:find('вы оплатили')) then
             isPayingFamHouse = false
-            local cleanInfo = text:gsub('{.-}', '')
+            local cleanInfo = u8(text):gsub('{.-}', '')
             
             local payedRaw = cleanInfo:match('Вы оплатили%s*.-(%d[%d%s%.,]*)')
             local remainRaw = cleanInfo:match('составляет%s*.-(%d[%d%s%.,]*)') or cleanInfo:match('налог%s*.-(%d[%d%s%.,]*)')
@@ -230,7 +239,7 @@ function sampev.onServerMessage(color, text)
     end
 
     -- Уведомление об успешной оплате обычных налогов
-    if text:find("^Вы оплатили все налоги на сумму") then
+    if text:find(u8:decode("^Вы оплатили все налоги на сумму")) then
         chat("{00ff00}Налоги дом/биз оплачены!")
     end
 end
