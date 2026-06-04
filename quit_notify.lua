@@ -3,14 +3,17 @@ script_version('1.0')
 
 local se = require("samp.events")
 local Vector3D = require("vector3d")
+local encoding = require("encoding")
+encoding.default = 'CP1251'
+local u8 = encoding.UTF8
 
 local pool_3DTexts = {}
 local pool_notifies = {}
 local duration = 15
 local quit_reasons = {
-    [0] = "Краш / Тайм-аут",
-    [1] = "Вышел c сервера",
-    [2] = "Кикнут сервером"
+    [0] = u8:decode("Краш / Тайм-аут"),
+    [1] = u8:decode("Вышел c сервера"),
+    [2] = u8:decode("Кикнут сервером")
 }
 
 function se.onPlayerQuit(player_id, reason)
@@ -25,10 +28,10 @@ function se.onPlayerQuit(player_id, reason)
     if getDistanceBetweenCoords3d(px, py, pz, mx, my, mz) <= 50 then
         local nickname = sampGetPlayerNickname(player_id)
         local message = table.concat({
-            ("Игрок %s(%d) покинул игру"):format(nickname, player_id),
+            u8:decode(("Игрок %s(%d) покинул игру"):format(nickname, player_id)),
             "",
-            quit_reasons[reason] or "Неизвестная причина",
-            ("Время: %s"):format(os.date("%H:%M:%S"))
+            quit_reasons[reason] or u8:decode("Неизвестная причина"),
+            u8:decode(("Время: %s"):format(os.date("%H:%M:%S")))
         }, "\n")
 
         createQuitNotify(px, py, pz, message)
@@ -60,6 +63,7 @@ function onScriptTerminate(script, isQuit)
 end
 
 function createQuitNotify(x, y, z, text)
+    -- Текст уже декодирован перед отправкой, поэтому используем его напрямую
     local id = sampCreate3dText(text, 0xAAFFFFFF, x, y, z, 25, false, 0xFFFF, 0xFFFF)
     pool_notifies[id] = os.clock() + duration
 
@@ -106,7 +110,7 @@ function sampCreate3dText(text, color, x, y, z, dist, testLOS, playerID, vehicle
     raknetBitStreamWriteInt8(bs, testLOS and 1 or 0)
     raknetBitStreamWriteInt16(bs, playerID)
     raknetBitStreamWriteInt16(bs, vehicleID)
-    raknetBitStreamEncodeString(bs, text)
+    raknetBitStreamEncodeString(bs, text) -- Текст уже переведен в нужную кодировку
     raknetEmulRpcReceiveBitStream(36, bs)
     raknetDeleteBitStream(bs)
 
