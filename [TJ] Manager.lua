@@ -166,11 +166,11 @@ local newFrame = imgui.OnFrame(
             
             imgui.BeginChild("LeftPanel", imgui.ImVec2(320, 0), true)
             
-            imgui.Text("Список скриптов")
+            imgui.Text(u8("Список скриптов"))
             imgui.SameLine(imgui.GetWindowWidth() - 100)
-            if imgui.Button(fa("ROTATE") .. " Обновить") then loadCatalog() end 
+            if imgui.Button(fa("ROTATE") .. u8(" Обновить")) then loadCatalog() end 
             
-            imgui.Checkbox("Показывать Установленные", showOnlyInstalled)
+            imgui.Checkbox(u8("Показывать Установленные"), showOnlyInstalled)
             imgui.Separator()
             
             for i, item in ipairs(scriptsCatalog) do
@@ -180,7 +180,7 @@ local newFrame = imgui.OnFrame(
                 
                 if matchInstalled then
                     local prefix = isInstalled and (fa("CHECK") .. "  ") or "      "
-                    local label = prefix .. (item.name or "Безымянный скрипт")
+                    local label = prefix .. (item.name or u8("Безымянный скрипт"))
                     
                     local needsUpdate = false
                     if isInstalled and item.version then
@@ -200,7 +200,7 @@ local newFrame = imgui.OnFrame(
                     
                     if needsUpdate then
                         imgui.SameLine(imgui.CalcTextSize(label).x + 25)
-                        imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 1.0), "(Нужно обновить)")
+                        imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 1.0), u8("(Нужно обновить)"))
                     end
                     
                     imgui.PopStyleVar()
@@ -223,8 +223,8 @@ local newFrame = imgui.OnFrame(
                 local topBtnColor = imgui.ImVec4(0.18, 0.18, 0.18, 1.0)
                 
                 if not isInstalled then
-                    if ColoredButton(fa("WRENCH") .. " Установить скрипт", topBtnColor, imgui.ImVec2(rightPanelWidth - 15, btnHeight)) then
-                        chat("{FF9900}Script Manager: {FFFFFF}Устанавливаю скрипт: {33CC33}" .. activeScript.filename)
+                    if ColoredButton(fa("WRENCH") .. u8(" Установить скрипт"), topBtnColor, imgui.ImVec2(rightPanelWidth - 15, btnHeight)) then
+                        chat(u8("{FF9900}Script Manager: {FFFFFF}Устанавливаю скрипт: {33CC33}") .. activeScript.filename)
                         
                         if runningScript and activeScript.filename ~= thisScript().filename then 
                             runningScript:unload() 
@@ -239,15 +239,15 @@ local newFrame = imgui.OnFrame(
                                     script.load(filePath)
                                 end
                                 activeScript.localVersion = getLocalScriptVersion(filePath)
-                                local cmdText = (activeScript.command and activeScript.command ~= "") and activeScript.command or "отсутствует"
-                                chat("{FF9900}" .. (activeScript.name or "Скрипт") .. ": {FFFFFF}Загружен. Команда: " .. cmdText .. ".")
+                                local cmdText = (activeScript.command and activeScript.command ~= "") and activeScript.command or u8("отсутствует")
+                                chat(u8("{FF9900}") .. (activeScript.name or u8("Скрипт")) .. u8(": {FFFFFF}Загружен. Команда: ") .. cmdText .. u8("."))
                             end
                         end)
                     end
-                else
+                end else
                     local updateBtnWidth = rightPanelWidth - 50 - 15
-                    if ColoredButton(fa("ROTATE") .. " Обновить скрипт", topBtnColor, imgui.ImVec2(updateBtnWidth, btnHeight)) then
-                        chat("{FF9900}Script Manager: {FFFFFF}Обновляю скрипт: {33CC33}" .. activeScript.filename)
+                    if ColoredButton(fa("ROTATE") .. u8(" Обновить скрипт"), topBtnColor, imgui.ImVec2(updateBtnWidth, btnHeight)) then
+                        chat(u8("{FF9900}Script Manager: {FFFFFF}Обновляю скрипт: {33CC33}") .. activeScript.filename)
                         
                         if runningScript and activeScript.filename ~= thisScript().filename then 
                             runningScript:unload() 
@@ -262,8 +262,8 @@ local newFrame = imgui.OnFrame(
                                     script.load(filePath)
                                 end
                                 activeScript.localVersion = getLocalScriptVersion(filePath)
-                                local cmdText = (activeScript.command and activeScript.command ~= "") and activeScript.command or "отсутствует"
-                                chat("{FF9900}" .. (activeScript.name or "Скрипт") .. ": {FFFFFF}Успешно обновлен. Команда: " .. cmdText .. ".")
+                                local cmdText = (activeScript.command and activeScript.command ~= "") and activeScript.command or u8("отсутствует")
+                                chat(u8("{FF9900}") .. (activeScript.name or u8("Скрипт")) .. u8(": {FFFFFF}Успешно обновлен. Команда: " ) .. cmdText .. u8("."))
                             end
                         end)
                     end
@@ -271,7 +271,7 @@ local newFrame = imgui.OnFrame(
                     imgui.SameLine()
                     
                     if ColoredButton(fa("TRASH"), topBtnColor, imgui.ImVec2(40, btnHeight)) then
-                        chat("{FF9900}Script Manager: {FFFFFF}Удаляю скрипт: {33CC33}" .. activeScript.filename)
+                        chat(u8("{FF9900}Script Manager: {FFFFFF}Удаляю скрипт: {33CC33}") .. activeScript.filename)
                         
                         if runningScript then runningScript:unload() end
                         os.remove(filePath)
@@ -281,11 +281,11 @@ local newFrame = imgui.OnFrame(
                 imgui.Separator()
                 imgui.SetCursorPosY(imgui.GetCursorPosY() + 10)
                 
-                imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 1.0), "Название: ")
+                imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 1.0), u8("Название: "))
                 imgui.SameLine()
                 imgui.TextColored(imgui.ImVec4(0.2, 0.8, 0.2, 1.0), activeScript.name)
                 imgui.SameLine()
-                imgui.TextDisabled("(имя файла: " .. activeScript.filename .. ")")
+                imgui.TextDisabled(u8("(имя файла: ") .. activeScript.filename .. u8(")"))
                 if isInstalled and activeScript.localVersion then
                     imgui.SameLine()
                     imgui.TextColored(imgui.ImVec4(0.4, 0.6, 0.8, 1.0), "v" .. activeScript.localVersion)
@@ -296,14 +296,14 @@ local newFrame = imgui.OnFrame(
                 imgui.Dummy(imgui.ImVec2(0, 10))
 
                 -- Описание
-                imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 1.0), "Описание:")
-                imgui.TextWrapped(activeScript.description or "Описание отсутствует.")
+                imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 1.0), u8("Описание:"))
+                imgui.TextWrapped(activeScript.description or u8("Описание отсутствует."))
                 imgui.Dummy(imgui.ImVec2(0, 10))
                 
                 -- Команды
                 local cmdInfo = activeScript.command or ""
                 if cmdInfo ~= "" then
-                    imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 1.0), "Команды:")
+                    imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 1.0), u8("Команды:"))
                     -- Включаем желтый цвет (1, 1, 0 — это желтый в RGB)
                     imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(1.0, 1.0, 0.0, 1.0)) 
                     imgui.TextWrapped(cmdInfo)
@@ -312,7 +312,7 @@ local newFrame = imgui.OnFrame(
                 end
 
             else
-                imgui.TextDisabled("Выберите скрипт из списка...")
+                imgui.TextDisabled(u8("Выберите скрипт из списка..."))
             end
             
             imgui.EndChild()
