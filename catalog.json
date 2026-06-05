@@ -16,62 +16,6 @@
     "version": "2.1"
   },
   {
-    "name": "TestDrive",
-    "description": "тестить машины до их выхода.",
-    "filename": "TestDrive_v5.23_by_chapo.lua",
-    "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/TestDrive_v5.23_by_chapo.lua",
-    "command": "/testdrive",
-    "version": "5.23"
-  },
-  {
-    "name": "CustomNameSpawn",
-    "description": "Описание домов при выборе спавна.",
-    "filename": "CustomNameSpawn 1.2.lua",
-    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/CustomNameSpawn%201.2.lua",
-    "command": "/addcs [id дома] [Кастом название]",
-    "version": "1.2"
-  },
-  {
-    "name": "ModloaderSettings",
-    "description": "Скрипт добавляет в новое меню паузы настройки модов (заменки).",
-    "filename": "ModloaderSettings.lua",
-    "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/ModloaderSettings.lua",
-    "command": "В настройках игры",
-    "version": "1.0"
-  },
-  {
-    "name": "CEFStatsWindow",
-    "description": "Новая красивая статистика в /stats",
-    "filename": "CEFStatsWindow.lua",
-    "url": "https://raw.githubusercontent.com/Tariffka/MySampScripts3/main/CEFStatsWindow.lua",
-    "command": "/stats либо F3",
-    "version": "1.0"
-  },
-  {
-    "name": "quit info",
-    "description": "При выходе игрока показывает место и причину",
-    "filename": "quit_notify.lua",
-    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/quit_notify.lua",
-    "command": "нету",
-    "version": "1.0"
-  },
-  {
-    "name": "Inventory history",
-    "description": "Делает страницы в инвентаре",
-    "filename": "InventoryPages.lua",
-    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/InventoryPages.lua",
-    "command": "нету",
-    "version": "1.0"
-  },
-  {
-    "name": "[TJ] Рыбий Глаз",
-    "description": "увеличивает поле зрения игрока",
-    "filename": "[TJ] rib_Glaz.lua",
-    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20rib_Glaz.lua",
-    "command": "glaz - Включить/Выключить \n/fov [10 - 150] - Изменение поля зрения",
-    "version": "1.0"
-  },
-  {
     "name": "[TJ] trmap",
     "description": "Копирует зону клада",
     "filename": "[TJ] trmap.lua",
