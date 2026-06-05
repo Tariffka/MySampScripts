@@ -72,11 +72,11 @@
     "version": "1.0"
   },
     {
-    "name": "Авто реклама",
+    "name": "[TJ] Авто реклама",
     "description": "Авто реклама визде (РАБОТАЕТ ТОЛЬКО С VIP-RESEND(разделитель вип-чата)",
-    "filename": "autoad.lua",
-    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/autoad.lua",
-    "command": "",
+    "filename": "[TJ] autoad.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20autoad.lua",
+    "command": "/autoad",
     "version": "2.2"
   },
     {
