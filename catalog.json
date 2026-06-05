@@ -22,5 +22,77 @@
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20trmap.lua",
     "command": "Команду показывает при скачивании",
     "version": "1.0"
+  },
+  {
+    "name": "Рыбий Глаз",
+    "description": "Изменяет угол обзора",
+    "filename": "[TJ] rib_Glaz.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20rib_Glaz.lua",
+    "command": "/glaz - Вкл/Выкл \n/fov [10-150] - Укажите угол обзора",
+    "version": "1.0"
+  },
+    {
+    "name": "ModloaderSettings",
+    "description": "Скрипт добавляет в новое меню паузы настройки модов. \nВключить/Выключить заменки на скины и т.д",
+    "filename": "ModloaderSettings.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/ModloaderSettings.lua",
+    "command": "",
+    "version": "1.0"
+  },
+    {
+    "name": "CustomNameSpawn",
+    "description": "Добавляет возможность указывать кастомные название домиков. Полезно для тех у кого куча домов \nРаботает толко с ADD-VIP Forever",
+    "filename": "CustomNameSpawn 1.2.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/CustomNameSpawn%201.2.lua",
+    "command": "/addcs [id дома] [Кастом название]\n/clearcs [Если пусто - все удаляет; id дома - удалится его кастом название]",
+    "version": "1.0"
+  },
+    {
+    "name": "Новая Статистика",
+    "description": "Скрипт для MoonLoader, который выводит статистику персонажа в отдельном CEF-окне. \nКрасивая статистика где все понятно",
+    "filename": "CEFStatsWindow.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/CEFStatsWindow.lua",
+    "command": "/stats либо F3",
+    "version": "1.0"
+  },
+    {
+    "name": "quit_notify",
+    "description": "Уведомление на месте выхода из игры \nКогда рядом с вами кто-то выходит из игры, на его месте появляется временный текст с пояснением причины выхода, будь то обычный выход через /q, краш или кик с сервера.\nТекст автоматически пропадает через 15 секунд",
+    "filename": "quit_notify.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/quit_notify.lua",
+    "command": "",
+    "version": "1.0"
+  },
+    {
+    "name": "Разделитель вип-чата",
+    "description": "Разделяет вип чат на 2 части",
+    "filename": "vip-resend.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/vip-resend.lua",
+    "command": "/vr - Обычный вип-чат\n/vra - Рекламное сообщение вип-чата",
+    "version": "1.0"
+  },
+    {
+    "name": "",
+    "description": "",
+    "filename": "",
+    "url": "",
+    "command": "",
+    "version": "1.0"
+  },
+    {
+    "name": "",
+    "description": "",
+    "filename": "",
+    "url": "",
+    "command": "",
+    "version": "1.0"
+  },
+    {
+    "name": "",
+    "description": "",
+    "filename": "",
+    "url": "",
+    "command": "",
+    "version": "1.0"
   }
 ]
