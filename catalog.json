@@ -85,7 +85,7 @@
     "filename": "#ArzResHelper.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%23ArzResHelper.lua",
     "command": "/rh - Открыть/закрыть главное меню\nAlt + K - Быстрое открытие/закрытие меню\n/rhrl - Перезагрузить скрипт\n/rhreset - Сбросить кэш статистики",
-    "version": "1.0"
+    "version": "1.2.1"
   },
     {
     "name": "",
