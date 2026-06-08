@@ -81,7 +81,7 @@
   },
     {
     "name": "Resourse Logger",
-    "description": "Крутой хелпер для фермы,лесопилки,шахты(подземной тоже), так же логгирует зароботок с Item Marketa",
+    "description": "Крутой хелпер для фермы,лесопилки,шахты(подземной тоже), так же логгирует зароботок с Item Marketa\n By Ryder Nakata (ex.GA 25",
     "filename": "#ArzResHelper.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%23ArzResHelper.lua",
     "command": "/rh - Открыть/закрыть главное меню\nAlt + K - Быстрое открытие/закрытие меню\n/rhrl - Перезагрузить скрипт\n/rhreset - Сбросить кэш статистики",
