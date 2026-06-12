@@ -88,11 +88,11 @@
     "version": "1.2.1"
   },
     {
-    "name": "",
-    "description": "",
-    "filename": "",
-    "url": "",
-    "command": "",
+    "name": "TestDrive",
+    "description": "Тест драйв машин до обновы",
+    "filename": "TestDrive v5.23 by chapo.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/TestDrive%20v5.23%20by%20chapo.lua",
+    "command": "/testdrive",
     "version": "1.0"
   }
 ]
