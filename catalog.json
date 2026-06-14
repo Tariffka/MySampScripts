@@ -13,7 +13,7 @@
     "filename": "[TJ] Taxes_V2.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20Taxes_V2.lua",
     "command": "/fhmode",
-    "version": "2.1"
+    "version": "2.2"
   },
   {
     "name": "[TJ] trmap",
@@ -93,6 +93,14 @@
     "filename": "TestDrive v5.23 by chapo.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/TestDrive%20v5.23%20by%20chapo.lua",
     "command": "/testdrive",
+    "version": "1.0"
+  },
+    {
+    "name": "ХП/Армор на персонаже",
+    "description": "Выводит хп и армор на персонажа действующе/макисмальное",
+    "filename": "[TJ] HPHud.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/%5BTJ%5D%20HPHud.lua",
+    "command": "Автоматическая",
     "version": "1.0"
   }
 ]
