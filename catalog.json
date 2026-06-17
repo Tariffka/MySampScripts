@@ -49,7 +49,7 @@
   },
     {
     "name": "Новая Статистика",
-    "description": "Скрипт для MoonLoader, который выводит статистику персонажа в отдельном CEF-окне. \nКрасивая статистика где все понятно",
+    "description": "Скрипт для MoonLoader, который выводит статистику персонажа в отдельном CEF-окне.\nКрасивая статистика где все понятно",
     "filename": "CEFStatsWindow.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/CEFStatsWindow.lua",
     "command": "/stats либо F3",
