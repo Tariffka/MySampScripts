@@ -31,6 +31,14 @@
     "command": "/glaz - Вкл/Выкл \n/fov [10-150] - Укажите угол обзора",
     "version": "1.0"
   },
+  {
+    "name": "Тест скрипта",
+    "description": "Добавлю",
+    "filename": "Fast-rec.lua",
+    "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/Fast-rec.lua",
+    "command": "",
+    "version": "1.0"
+  },
     {
     "name": "ModloaderSettings",
     "description": "Скрипт добавляет в новое меню паузы настройки модов. \nВключить/Выключить заменки на скины и т.д",
