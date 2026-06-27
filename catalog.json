@@ -32,12 +32,12 @@
     "version": "1.0"
   },
   {
-    "name": "Тест скрипта",
-    "description": "Добавлю",
+    "name": "Удобрый выбор спавна и быстрый",
+    "description": "Быстрый перезаход на нужное место\nТак же удобная замена системного выбор спавна",
     "filename": "Fast-rec.lua",
     "url": "https://github.com/Tariffka/MySampScripts/raw/refs/heads/main/Fast-rec.lua",
-    "command": "",
-    "version": "1.0"
+    "command": "Активируется при первом заходе в игру либо перезаходе через /rec",
+    "version": ""
   },
     {
     "name": "ModloaderSettings",
